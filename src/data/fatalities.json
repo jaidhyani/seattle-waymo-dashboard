@@ -1,0 +1,174 @@
+{
+  "dcFatalities": {
+    "byYear": [
+      { "year": 2019, "deaths": 38 },
+      { "year": 2020, "deaths": 37 },
+      { "year": 2021, "deaths": 40 },
+      { "year": 2022, "deaths": 56 },
+      { "year": 2023, "deaths": 51 },
+      { "year": 2024, "deaths": 50 },
+      { "year": 2025, "deaths": 25, "note": "Extrapolated from partial-year data" },
+      { "year": 2026, "deaths": 25, "note": "Projected using 2025 rate" }
+    ],
+    "delayStart": "2023-01-01",
+    "causeBreakdown": {
+      "drunkDriving": 0.30,
+      "speeding": 0.29,
+      "distraction": 0.08,
+      "other": 0.33
+    }
+  },
+  "waymoSafety": {
+    "injuryCrashReduction": 0.85,
+    "pedestrianInjuryReduction": 0.92,
+    "intersectionCrashReduction": 0.96,
+    "conservativeVMTShare": 0.10,
+    "milesAnalyzed": "7.1 million",
+    "rideHailVMTShare": {
+      "dc": 0.069,
+      "sf": 0.128,
+      "source": "Fehr & Peers (2019)",
+      "sourceUrl": "https://www.prnewswire.com/news-releases/new-study-finds-over-97-of-vehicle-miles-traveled-in-major-us-cities-are-completed-by-personal-and-commercial-vehicles-300896095.html",
+      "note": "Ride-hail share of city-core VMT. Conservative estimate of 10% assumes AV ride-hail captures most of existing ride-hail market plus modest growth."
+    },
+    "rideHailSafetyComparison": {
+      "waymo": {
+        "accidentsPerMillionMiles": 0.02,
+        "metric": "serious injuries per million miles",
+        "source": "Kusano et al., Traffic Injury Prevention (2025), 56.7M miles"
+      },
+      "uber": {
+        "accidentsPerMillionMiles": 0.45,
+        "fatalitiesPer100MVMT": 0.87,
+        "metric": "accidents per million miles",
+        "source": "Uber Safety Report (2021–2022)"
+      },
+      "lyft": {
+        "accidentsPerMillionMiles": 0.38,
+        "fatalitiesPer100MVMT": 0.85,
+        "metric": "accidents per million miles",
+        "source": "Lyft Safety Report (2021–2022)"
+      },
+      "nationalAverage": {
+        "fatalitiesPer100MVMT": 1.35,
+        "source": "NHTSA FARS"
+      },
+      "caveat": "Methodologies differ across these sources. Waymo data uses police-reported incidents matched to location baselines; Uber/Lyft figures are self-reported. Direct comparison should be interpreted with caution."
+    },
+    "studies": [
+      {
+        "name": "Kusano et al. (2024)",
+        "journal": "Traffic Injury Prevention",
+        "finding": "85% fewer injury crashes over 7.1M autonomous miles",
+        "url": "https://doi.org/10.1080/15389588.2024.2414537"
+      },
+      {
+        "name": "Kusano et al. (2025)",
+        "journal": "Traffic Injury Prevention",
+        "finding": "90% fewer serious injuries over 56.7M autonomous miles",
+        "url": "https://doi.org/10.1080/15389588.2025.2499887"
+      },
+      {
+        "name": "Swiss Re / Waymo (2024)",
+        "journal": "Swiss Re Institute",
+        "finding": "Waymo vehicles had zero bodily injury claims vs. human baseline",
+        "url": "https://www.swissre.com/institute/research/topics-and-risk-dialogues/digital-business-model-and-cyber-risk/autonomous-vehicles-waymo-insurance.html"
+      }
+    ]
+  },
+  "cityComparison": {
+    "perCapitaFatalityRate": [
+      { "city": "Washington, DC", "rate": 7.3, "population": 689545, "note": "2023 data" },
+      { "city": "San Francisco", "rate": 3.3, "population": 808437, "note": "2023 data" },
+      { "city": "Phoenix", "rate": 8.9, "population": 1650070, "note": "2023 data" },
+      { "city": "Los Angeles", "rate": 7.1, "population": 3898747, "note": "2023 data" }
+    ],
+    "rateUnit": "per 100,000 residents"
+  },
+  "timeline": [
+    {
+      "date": "2020",
+      "event": "DC passes Autonomous Vehicle Testing Program law",
+      "detail": "Mandates DDOT complete a safety study by late 2022",
+      "cumulativeDeaths": null
+    },
+    {
+      "date": "Late 2022",
+      "event": "DDOT misses legally mandated deadline",
+      "detail": "Safety study not completed; regulatory limbo begins",
+      "cumulativeDeaths": 0
+    },
+    {
+      "date": "Jan 2023",
+      "event": "Delay clock starts",
+      "detail": "AV deployment blocked without completed study",
+      "cumulativeDeaths": 0
+    },
+    {
+      "date": "April 2024",
+      "event": "Waymo begins testing in DC with safety drivers",
+      "detail": "Limited testing only — no public ride-hail service",
+      "cumulativeDeaths": 65
+    },
+    {
+      "date": "July 2025",
+      "event": "McDuffie introduces B26-0323",
+      "detail": "Bill to enable AV deployment in DC",
+      "cumulativeDeaths": 113
+    },
+    {
+      "date": "Dec 2025",
+      "event": "Allen refuses to advance bill",
+      "detail": "Councilmember Allen (Ward 6) blocks enabling legislation",
+      "cumulativeDeaths": 123
+    },
+    {
+      "date": "Feb 2026",
+      "event": "Still in regulatory limbo",
+      "detail": "No AV ride-hail service permitted in DC",
+      "cumulativeDeaths": 131
+    }
+  ],
+  "sources": [
+    {
+      "name": "NHTSA FARS",
+      "description": "Fatality Analysis Reporting System — national traffic fatality data",
+      "url": "https://www.nhtsa.gov/research-data/fatality-analysis-reporting-system-fars"
+    },
+    {
+      "name": "DC Vision Zero",
+      "description": "District of Columbia traffic safety initiative and crash data",
+      "url": "https://visionzero.dc.gov/"
+    },
+    {
+      "name": "Open Data DC",
+      "description": "DC government open data portal — crash and fatality datasets",
+      "url": "https://opendata.dc.gov/"
+    },
+    {
+      "name": "Kusano et al. (2024)",
+      "description": "Peer-reviewed study: 85% fewer injury crashes in 7.1M Waymo miles",
+      "url": "https://doi.org/10.1080/15389588.2024.2414537"
+    },
+    {
+      "name": "Swiss Re / Waymo Insurance Study (2024)",
+      "description": "Zero bodily injury claims for Waymo fleet vs. human baseline",
+      "url": "https://www.swissre.com/institute/research/topics-and-risk-dialogues/digital-business-model-and-cyber-risk/autonomous-vehicles-waymo-insurance.html"
+    },
+    {
+      "name": "B26-0323 — Autonomous Vehicle Deployment Act",
+      "description": "Proposed DC legislation to permit AV ride-hail deployment",
+      "url": "https://lims.dccouncil.gov/Legislation/B26-0323"
+    },
+    {
+      "name": "Fehr & Peers Ride-Hail VMT Study (2019)",
+      "description": "Ride-hail accounts for 1–13% of city-core VMT across major US cities (DC: 6.9%, SF: 12.8%)",
+      "url": "https://www.prnewswire.com/news-releases/new-study-finds-over-97-of-vehicle-miles-traveled-in-major-us-cities-are-completed-by-personal-and-commercial-vehicles-300896095.html"
+    },
+    {
+      "name": "Kusano et al. (2025) — 56.7M Miles",
+      "description": "Updated peer-reviewed study: 90% fewer serious injuries over 56.7M Waymo miles",
+      "url": "https://doi.org/10.1080/15389588.2025.2499887"
+    }
+  ]
+}

@@ -1,0 +1,74 @@
+---
+import data from '../data/fatalities.json';
+
+const cities = data.cityComparison.perCapitaFatalityRate;
+const rateUnit = data.cityComparison.rateUnit;
+const causes = data.dcFatalities.causeBreakdown;
+---
+
+<section class="section">
+  <div class="container">
+    <div class="data-grid">
+      <div class="data-panel">
+        <h3>DC vs. AV-Permitted Cities</h3>
+        <p style="font-size: 0.85rem; color: var(--text-muted); margin-bottom: 16px;">
+          Traffic fatality rate {rateUnit} (2023)
+        </p>
+        <table class="city-comparison-table">
+          <thead>
+            <tr>
+              <th>City</th>
+              <th>AV Service</th>
+              <th>Rate</th>
+            </tr>
+          </thead>
+          <tbody>
+            {cities.map(city => (
+              <tr class={city.city === 'Washington, DC' ? 'dc' : ''}>
+                <td>{city.city}</td>
+                <td style={`color: ${city.city === 'Washington, DC' ? 'var(--red)' : 'var(--green)'}`}>
+                  {city.city === 'Washington, DC' ? 'Blocked' : 'Active'}
+                </td>
+                <td>{city.rate}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+        <p style="font-size: 0.75rem; color: var(--text-dim); margin-top: 12px;">
+          Note: Waymo's fleet is still a small fraction of total VMT in these cities.
+          City-level impact isn't yet measurable — vehicle-level safety data is
+          extrapolated to estimate potential impact.
+        </p>
+      </div>
+
+      <div class="data-panel">
+        <h3>DC Fatalities by Cause</h3>
+        <p style="font-size: 0.85rem; color: var(--text-muted); margin-bottom: 16px;">
+          Factors that autonomous vehicles eliminate
+        </p>
+        <div class="cause-grid">
+          <div class="cause-item">
+            <div class="cause-pct">{(causes.drunkDriving * 100).toFixed(0)}%</div>
+            <div class="cause-name">Drunk driving</div>
+            <div class="cause-note">AVs don't drink</div>
+          </div>
+          <div class="cause-item">
+            <div class="cause-pct">{(causes.speeding * 100).toFixed(0)}%</div>
+            <div class="cause-name">Speeding</div>
+            <div class="cause-note">AVs obey speed limits</div>
+          </div>
+          <div class="cause-item">
+            <div class="cause-pct">{(causes.distraction * 100).toFixed(0)}%</div>
+            <div class="cause-name">Distraction</div>
+            <div class="cause-note">AVs don't text</div>
+          </div>
+          <div class="cause-item">
+            <div class="cause-pct">{((causes.drunkDriving + causes.speeding + causes.distraction) * 100).toFixed(0)}%</div>
+            <div class="cause-name">Total AV-preventable</div>
+            <div class="cause-note">Combined human-error factors</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

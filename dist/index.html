@@ -1,0 +1,126 @@
+<!DOCTYPE html><html lang="en"> <head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="description" content="Tracking the human cost of DC's autonomous vehicle deployment delay"><meta property="og:title" content="DC Waymo Delay Dashboard — Preventable Deaths Counter"><meta property="og:description" content="Tracking the human cost of DC's autonomous vehicle deployment delay"><meta property="og:type" content="website"><meta name="twitter:card" content="summary_large_image"><meta name="twitter:title" content="DC Waymo Delay Dashboard — Preventable Deaths Counter"><meta name="twitter:description" content="Tracking the human cost of DC's autonomous vehicle deployment delay"><link rel="icon" type="image/svg+xml" href="/dc-waymo-dashboardfavicon.svg"><title>DC Waymo Delay Dashboard — Preventable Deaths Counter</title><link rel="stylesheet" href="/dc-waymo-dashboard/_astro/index.BLR8Tx7k.css"></head> <body>  <main> <section class="hero"> <h1>DC Autonomous Vehicle Delay Dashboard</h1> <div class="counter-wrapper"> <div class="counter-label">Estimated preventable deaths since Jan 1, 2023</div> <div class="counter-value" id="main-counter">--</div> <div class="counter-sublabel">
+If DC had permitted autonomous vehicle deployment on schedule
+</div> </div> <div class="counter-scenarios"> <div class="scenario"> <div class="scenario-label">If all trips were autonomous</div> <div class="scenario-value" id="scenario-full">--</div> <div class="scenario-detail">85% reduction &times; total fatalities</div> </div> <div class="scenario"> <div class="scenario-label">Conservative estimate</div> <div class="scenario-value" id="scenario-conservative">--</div> <div class="scenario-detail">85% reduction &times; 10% VMT share (<a href="https://www.prnewswire.com/news-releases/new-study-finds-over-97-of-vehicle-miles-traveled-in-major-us-cities-are-completed-by-personal-and-commercial-vehicles-300896095.html" target="_blank" rel="noopener" style="color: var(--text-dim);">Fehr &amp; Peers</a>)</div> </div> </div> </section> <script>(function(){const yearlyDeaths = [{"year":2019,"deaths":38},{"year":2020,"deaths":37},{"year":2021,"deaths":40},{"year":2022,"deaths":56},{"year":2023,"deaths":51},{"year":2024,"deaths":50},{"year":2025,"deaths":25,"note":"Extrapolated from partial-year data"},{"year":2026,"deaths":25,"note":"Projected using 2025 rate"}];
+const waymoReduction = 0.85;
+const conservativeShare = 0.1;
+
+  // Build cumulative death milestones: start of each year
+  // Jan 1, 2023 = 0 cumulative, end of 2023 = 51, end of 2024 = 101, etc.
+  const milestones = [];
+  let cumulative = 0;
+
+  for (const entry of yearlyDeaths) {
+    if (entry.year < 2023) continue;
+    const startOfYear = new Date(entry.year, 0, 1).getTime();
+    milestones.push({ time: startOfYear, deaths: cumulative });
+    cumulative += entry.deaths;
+  }
+  // Add one more for the end of last projected year
+  const lastEntry = yearlyDeaths[yearlyDeaths.length - 1];
+  const endOfLastYear = new Date(lastEntry.year + 1, 0, 1).getTime();
+  milestones.push({ time: endOfLastYear, deaths: cumulative });
+
+  function getCumulativeDeaths(now) {
+    const t = now.getTime();
+
+    if (t <= milestones[0].time) return 0;
+    if (t >= milestones[milestones.length - 1].time) {
+      return milestones[milestones.length - 1].deaths;
+    }
+
+    for (let i = 0; i < milestones.length - 1; i++) {
+      if (t >= milestones[i].time && t < milestones[i + 1].time) {
+        const progress = (t - milestones[i].time) / (milestones[i + 1].time - milestones[i].time);
+        return milestones[i].deaths + progress * (milestones[i + 1].deaths - milestones[i].deaths);
+      }
+    }
+    return 0;
+  }
+
+  const mainCounter = document.getElementById('main-counter');
+  const scenarioFull = document.getElementById('scenario-full');
+  const scenarioConservative = document.getElementById('scenario-conservative');
+
+  function updateCounter() {
+    const now = new Date();
+    const totalDeaths = getCumulativeDeaths(now);
+    const fullReduction = totalDeaths * waymoReduction;
+    const conservativeReduction = totalDeaths * waymoReduction * conservativeShare;
+
+    mainCounter.textContent = fullReduction.toFixed(1);
+    scenarioFull.textContent = fullReduction.toFixed(1);
+    scenarioConservative.textContent = conservativeReduction.toFixed(1);
+
+    requestAnimationFrame(updateCounter);
+  }
+
+  requestAnimationFrame(updateCounter);
+})();</script> <section class="section"> <div class="container"> <h2 class="section-title">The Delay</h2> <p class="section-subtitle">A timeline of DC's autonomous vehicle regulatory failure</p> <div class="timeline"> <div class="timeline-node "> <div class="timeline-dot"></div> <div class="timeline-date">2020</div> <div class="timeline-event">DC passes Autonomous Vehicle Testing Program law</div> <div class="timeline-detail">Mandates DDOT complete a safety study by late 2022</div>  </div><div class="timeline-node "> <div class="timeline-dot"></div> <div class="timeline-date">Late 2022</div> <div class="timeline-event">DDOT misses legally mandated deadline</div> <div class="timeline-detail">Safety study not completed; regulatory limbo begins</div>  </div><div class="timeline-node "> <div class="timeline-dot"></div> <div class="timeline-date">Jan 2023</div> <div class="timeline-event">Delay clock starts</div> <div class="timeline-detail">AV deployment blocked without completed study</div>  </div><div class="timeline-node "> <div class="timeline-dot"></div> <div class="timeline-date">April 2024</div> <div class="timeline-event">Waymo begins testing in DC with safety drivers</div> <div class="timeline-detail">Limited testing only — no public ride-hail service</div> <div class="timeline-deaths"> 65 road deaths since delay began
+</div> </div><div class="timeline-node "> <div class="timeline-dot"></div> <div class="timeline-date">July 2025</div> <div class="timeline-event">McDuffie introduces B26-0323</div> <div class="timeline-detail">Bill to enable AV deployment in DC</div> <div class="timeline-deaths"> 113 road deaths since delay began
+</div> </div><div class="timeline-node "> <div class="timeline-dot"></div> <div class="timeline-date">Dec 2025</div> <div class="timeline-event">Allen refuses to advance bill</div> <div class="timeline-detail">Councilmember Allen (Ward 6) blocks enabling legislation</div> <div class="timeline-deaths"> 123 road deaths since delay began
+</div> </div><div class="timeline-node active"> <div class="timeline-dot"></div> <div class="timeline-date">Feb 2026</div> <div class="timeline-event">Still in regulatory limbo</div> <div class="timeline-detail">No AV ride-hail service permitted in DC</div> <div class="timeline-deaths"> 131 road deaths since delay began
+</div> </div> </div> </div> </section> <section class="section"> <div class="container"> <h2 class="section-title">The Data</h2> <p class="section-subtitle">Waymo's safety record applied to DC</p> <div class="data-grid"> <div class="data-panel"> <h3>DC Traffic Fatalities (2019–2025)</h3> <div class="bar-chart"> <div class="bar-row"> <span class="bar-year">2019</span> <div class="bar-track"> <div class="bar-fill " style="width: 67.85714285714286%"></div> </div> <span class="bar-count">38</span> </div><div class="bar-row"> <span class="bar-year">2020</span> <div class="bar-track"> <div class="bar-fill " style="width: 66.07142857142857%"></div> </div> <span class="bar-count">37</span> </div><div class="bar-row"> <span class="bar-year">2021</span> <div class="bar-track"> <div class="bar-fill " style="width: 71.42857142857143%"></div> </div> <span class="bar-count">40</span> </div><div class="bar-row"> <span class="bar-year">2022</span> <div class="bar-track"> <div class="bar-fill " style="width: 100%"></div> </div> <span class="bar-count">56</span> </div><div class="bar-row"> <span class="bar-year">2023</span> <div class="bar-track"> <div class="bar-fill " style="width: 91.07142857142857%"></div> </div> <span class="bar-count">51</span> </div><div class="bar-row"> <span class="bar-year">2024</span> <div class="bar-track"> <div class="bar-fill " style="width: 89.28571428571429%"></div> </div> <span class="bar-count">50</span> </div><div class="bar-row"> <span class="bar-year">2025</span> <div class="bar-track"> <div class="bar-fill projected" style="width: 44.642857142857146%"></div> </div> <span class="bar-count">25*</span> </div> </div> <p style="font-size: 0.75rem; color: var(--text-dim); margin-top: 8px;">
+* Extrapolated from partial-year data
+</p> </div> <div class="data-panel"> <h3>Waymo Safety Reductions (Peer-Reviewed)</h3> <div class="stat-row"> <span class="stat-label">Injury crash reduction</span> <span class="stat-value green">-85%</span> </div> <div class="stat-row"> <span class="stat-label">Pedestrian injury reduction</span> <span class="stat-value green">-92%</span> </div> <div class="stat-row"> <span class="stat-label">Intersection crash reduction</span> <span class="stat-value green">-96%</span> </div> <div class="stat-row"> <span class="stat-label">Miles analyzed</span> <span class="stat-value">7.1 million</span> </div> <div style="margin-top: 24px; padding-top: 16px; border-top: 1px solid var(--border);"> <h3 style="margin-bottom: 16px;">Applied to DC (annual, based on 2024)</h3> <div class="stat-row"> <span class="stat-label">Preventable deaths/year (full deployment)</span> <span class="stat-value highlight">43</span> </div> <div class="stat-row"> <span class="stat-label">Preventable deaths/year (10% VMT share)</span> <span class="stat-value highlight">4</span> </div> <p style="font-size: 0.75rem; color: var(--text-dim); margin-top: 8px;">
+DC ride-hail is currently ~7% of city-core VMT (<a href="https://www.prnewswire.com/news-releases/new-study-finds-over-97-of-vehicle-miles-traveled-in-major-us-cities-are-completed-by-personal-and-commercial-vehicles-300896095.html" target="_blank" rel="noopener">Fehr &amp; Peers</a>).
+            10% assumes AV ride-hail captures most of the existing market plus modest growth.
+</p> </div> <div style="margin-top: 16px;"> <p style="font-size: 0.8rem; color: var(--text-dim); margin-top: 4px;">
+Source: <a href="https://doi.org/10.1080/15389588.2024.2414537" target="_blank" rel="noopener">Kusano et al. (2024)</a>
+— 85% fewer injury crashes over 7.1M autonomous miles </p><p style="font-size: 0.8rem; color: var(--text-dim); margin-top: 4px;">
+Source: <a href="https://doi.org/10.1080/15389588.2025.2499887" target="_blank" rel="noopener">Kusano et al. (2025)</a>
+— 90% fewer serious injuries over 56.7M autonomous miles </p><p style="font-size: 0.8rem; color: var(--text-dim); margin-top: 4px;">
+Source: <a href="https://www.swissre.com/institute/research/topics-and-risk-dialogues/digital-business-model-and-cyber-risk/autonomous-vehicles-waymo-insurance.html" target="_blank" rel="noopener">Swiss Re / Waymo (2024)</a>
+— Waymo vehicles had zero bodily injury claims vs. human baseline </p> </div> </div> </div> <div class="data-panel" style="margin-top: 32px;"> <h3>Ride-Hail Safety Comparison</h3> <p style="font-size: 0.85rem; color: var(--text-muted); margin-bottom: 16px;">
+Incident rates across ride-hail providers and national baseline
+</p> <table class="city-comparison-table"> <thead> <tr> <th>Provider</th> <th>Metric</th> <th>Rate</th> </tr> </thead> <tbody> <tr> <td style="color: var(--green); font-weight: 600;">Waymo</td> <td>Serious injuries / million miles</td> <td style="color: var(--green);">0.02</td> </tr> <tr> <td>Uber</td> <td>Accidents / million miles</td> <td>0.45</td> </tr> <tr> <td>Lyft</td> <td>Accidents / million miles</td> <td>0.38</td> </tr> <tr> <td>National avg.</td> <td>Fatalities / 100M VMT</td> <td style="color: var(--red);">1.35</td> </tr> </tbody> </table> <p style="font-size: 0.75rem; color: var(--text-dim); margin-top: 12px;"> Methodologies differ across these sources. Waymo data uses police-reported incidents matched to location baselines; Uber/Lyft figures are self-reported. Direct comparison should be interpreted with caution. </p> <p style="font-size: 0.75rem; color: var(--text-dim); margin-top: 4px;">
+Sources: Kusano et al., Traffic Injury Prevention (2025), 56.7M miles &middot; Uber Safety Report (2021–2022) &middot; Lyft Safety Report (2021–2022) &middot; NHTSA FARS </p> </div> </div> </section> <section class="section"> <div class="container"> <div class="data-grid"> <div class="data-panel"> <h3>DC vs. AV-Permitted Cities</h3> <p style="font-size: 0.85rem; color: var(--text-muted); margin-bottom: 16px;">
+Traffic fatality rate per 100,000 residents (2023)
+</p> <table class="city-comparison-table"> <thead> <tr> <th>City</th> <th>AV Service</th> <th>Rate</th> </tr> </thead> <tbody> <tr class="dc"> <td>Washington, DC</td> <td style="color: var(--red)"> Blocked </td> <td>7.3</td> </tr><tr class> <td>San Francisco</td> <td style="color: var(--green)"> Active </td> <td>3.3</td> </tr><tr class> <td>Phoenix</td> <td style="color: var(--green)"> Active </td> <td>8.9</td> </tr><tr class> <td>Los Angeles</td> <td style="color: var(--green)"> Active </td> <td>7.1</td> </tr> </tbody> </table> <p style="font-size: 0.75rem; color: var(--text-dim); margin-top: 12px;">
+Note: Waymo's fleet is still a small fraction of total VMT in these cities.
+          City-level impact isn't yet measurable — vehicle-level safety data is
+          extrapolated to estimate potential impact.
+</p> </div> <div class="data-panel"> <h3>DC Fatalities by Cause</h3> <p style="font-size: 0.85rem; color: var(--text-muted); margin-bottom: 16px;">
+Factors that autonomous vehicles eliminate
+</p> <div class="cause-grid"> <div class="cause-item"> <div class="cause-pct">30%</div> <div class="cause-name">Drunk driving</div> <div class="cause-note">AVs don't drink</div> </div> <div class="cause-item"> <div class="cause-pct">29%</div> <div class="cause-name">Speeding</div> <div class="cause-note">AVs obey speed limits</div> </div> <div class="cause-item"> <div class="cause-pct">8%</div> <div class="cause-name">Distraction</div> <div class="cause-note">AVs don't text</div> </div> <div class="cause-item"> <div class="cause-pct">67%</div> <div class="cause-name">Total AV-preventable</div> <div class="cause-note">Combined human-error factors</div> </div> </div> </div> </div> </div> </section> <section class="section"> <div class="container"> <h2 class="section-title">Methodology &amp; Sources</h2> <p class="section-subtitle">Full transparency on data, assumptions, and limitations</p> <div class="methodology-content"> <h3>How the counter works</h3> <p>
+The live counter estimates preventable deaths by interpolating DC's cumulative
+        traffic fatalities since January 1, 2023 (when the DDOT safety study was
+        already overdue) and applying Waymo's peer-reviewed safety reduction factor.
+</p> <p>
+DC fatality data by year: 2023 (51 deaths), 2024 (50 deaths), 2025 (25,
+        extrapolated from partial-year reporting). Deaths are interpolated linearly
+        within each year to produce a real-time estimate.
+</p> <h3>Two scenarios</h3> <p> <strong>"If all trips were autonomous" (upper bound):</strong> Applies the 85%
+        injury crash reduction directly to the cumulative fatality count. This assumes
+        full fleet replacement — an upper bound to illustrate maximum potential impact.
+</p> <p> <strong>"Conservative estimate" (lower bound):</strong> Applies the 85%
+        reduction to 10% of vehicle miles traveled. Ride-hail currently accounts for
+        ~7% of DC's city-core VMT (<a href="https://www.prnewswire.com/news-releases/new-study-finds-over-97-of-vehicle-miles-traveled-in-major-us-cities-are-completed-by-personal-and-commercial-vehicles-300896095.html" target="_blank" rel="noopener">Fehr &amp; Peers, 2019</a>).
+        The 10% figure assumes AV ride-hail captures most of that market plus modest growth.
+</p> <h3>Key assumptions &amp; limitations</h3> <ul class="assumptions-list"> <li>
+The 85% reduction comes from Kusano et al.'s analysis of 7.1 million
+autonomous miles. Real-world deployment at scale could differ.
+</li> <li>
+Fatality reductions are extrapolated from injury crash data. Fatality-specific
+          reductions may be higher or lower than the overall injury crash reduction.
+</li> <li>
+The 10% VMT share is based on Fehr &amp; Peers data showing DC ride-hail at
+          ~7% of city-core VMT (2019). Actual AV deployment would ramp up gradually,
+          not begin at 10% on day one. For context, San Francisco's ride-hail VMT share
+          is ~13% — the highest of any major US city.
+</li> <li>
+These figures represent potential lives saved, not certainties. AV technology
+          continues to improve, and real-world results will depend on deployment specifics.
+</li> <li>
+DC's road conditions, driver behavior, and infrastructure differ from cities
+          where Waymo data was collected (primarily Phoenix and San Francisco).
+</li> </ul> <h3>Data sources</h3> <ul> <li> <a href="https://www.nhtsa.gov/research-data/fatality-analysis-reporting-system-fars" target="_blank" rel="noopener">NHTSA FARS</a> <span>Fatality Analysis Reporting System — national traffic fatality data</span> </li><li> <a href="https://visionzero.dc.gov/" target="_blank" rel="noopener">DC Vision Zero</a> <span>District of Columbia traffic safety initiative and crash data</span> </li><li> <a href="https://opendata.dc.gov/" target="_blank" rel="noopener">Open Data DC</a> <span>DC government open data portal — crash and fatality datasets</span> </li><li> <a href="https://doi.org/10.1080/15389588.2024.2414537" target="_blank" rel="noopener">Kusano et al. (2024)</a> <span>Peer-reviewed study: 85% fewer injury crashes in 7.1M Waymo miles</span> </li><li> <a href="https://www.swissre.com/institute/research/topics-and-risk-dialogues/digital-business-model-and-cyber-risk/autonomous-vehicles-waymo-insurance.html" target="_blank" rel="noopener">Swiss Re / Waymo Insurance Study (2024)</a> <span>Zero bodily injury claims for Waymo fleet vs. human baseline</span> </li><li> <a href="https://lims.dccouncil.gov/Legislation/B26-0323" target="_blank" rel="noopener">B26-0323 — Autonomous Vehicle Deployment Act</a> <span>Proposed DC legislation to permit AV ride-hail deployment</span> </li><li> <a href="https://www.prnewswire.com/news-releases/new-study-finds-over-97-of-vehicle-miles-traveled-in-major-us-cities-are-completed-by-personal-and-commercial-vehicles-300896095.html" target="_blank" rel="noopener">Fehr &amp; Peers Ride-Hail VMT Study (2019)</a> <span>Ride-hail accounts for 1–13% of city-core VMT across major US cities (DC: 6.9%, SF: 12.8%)</span> </li><li> <a href="https://doi.org/10.1080/15389588.2025.2499887" target="_blank" rel="noopener">Kusano et al. (2025) — 56.7M Miles</a> <span>Updated peer-reviewed study: 90% fewer serious injuries over 56.7M Waymo miles</span> </li> </ul> <div class="disclaimer"> <strong>Disclaimer:</strong> This dashboard presents estimates based on
+        publicly available data and peer-reviewed research. It is intended to
+        illustrate the potential human cost of regulatory delay, not to predict
+        exact outcomes. The authors are advocates for autonomous vehicle deployment
+        and present this data in good faith to inform public discourse. All
+        sources are linked for independent verification.
+</div> </div> </div> </section> </main> <footer class="footer"> <p>
+Built with public data. All sources cited.
+<a href="https://github.com/yourusername/dc-waymo-dashboard" target="_blank" rel="noopener">
+View source on GitHub
+</a> </p> </footer>  </body></html>

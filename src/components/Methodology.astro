@@ -1,0 +1,85 @@
+---
+import data from '../data/fatalities.json';
+
+const sources = data.sources;
+const waymo = data.waymoSafety;
+---
+
+<section class="section">
+  <div class="container">
+    <h2 class="section-title">Methodology &amp; Sources</h2>
+    <p class="section-subtitle">Full transparency on data, assumptions, and limitations</p>
+
+    <div class="methodology-content">
+      <h3>How the counter works</h3>
+      <p>
+        The live counter estimates preventable deaths by interpolating DC's cumulative
+        traffic fatalities since January 1, 2023 (when the DDOT safety study was
+        already overdue) and applying Waymo's peer-reviewed safety reduction factor.
+      </p>
+      <p>
+        DC fatality data by year: 2023 (51 deaths), 2024 (50 deaths), 2025 (25,
+        extrapolated from partial-year reporting). Deaths are interpolated linearly
+        within each year to produce a real-time estimate.
+      </p>
+
+      <h3>Two scenarios</h3>
+      <p>
+        <strong>"If all trips were autonomous" (upper bound):</strong> Applies the 85%
+        injury crash reduction directly to the cumulative fatality count. This assumes
+        full fleet replacement — an upper bound to illustrate maximum potential impact.
+      </p>
+      <p>
+        <strong>"Conservative estimate" (lower bound):</strong> Applies the 85%
+        reduction to 10% of vehicle miles traveled. Ride-hail currently accounts for
+        ~7% of DC's city-core VMT (<a href="https://www.prnewswire.com/news-releases/new-study-finds-over-97-of-vehicle-miles-traveled-in-major-us-cities-are-completed-by-personal-and-commercial-vehicles-300896095.html" target="_blank" rel="noopener">Fehr &amp; Peers, 2019</a>).
+        The 10% figure assumes AV ride-hail captures most of that market plus modest growth.
+      </p>
+
+      <h3>Key assumptions &amp; limitations</h3>
+      <ul class="assumptions-list">
+        <li>
+          The 85% reduction comes from Kusano et al.'s analysis of {waymo.milesAnalyzed}
+          autonomous miles. Real-world deployment at scale could differ.
+        </li>
+        <li>
+          Fatality reductions are extrapolated from injury crash data. Fatality-specific
+          reductions may be higher or lower than the overall injury crash reduction.
+        </li>
+        <li>
+          The 10% VMT share is based on Fehr &amp; Peers data showing DC ride-hail at
+          ~7% of city-core VMT (2019). Actual AV deployment would ramp up gradually,
+          not begin at 10% on day one. For context, San Francisco's ride-hail VMT share
+          is ~13% — the highest of any major US city.
+        </li>
+        <li>
+          These figures represent potential lives saved, not certainties. AV technology
+          continues to improve, and real-world results will depend on deployment specifics.
+        </li>
+        <li>
+          DC's road conditions, driver behavior, and infrastructure differ from cities
+          where Waymo data was collected (primarily Phoenix and San Francisco).
+        </li>
+      </ul>
+
+      <h3>Data sources</h3>
+      <ul>
+        {sources.map(source => (
+          <li>
+            <a href={source.url} target="_blank" rel="noopener">{source.name}</a>
+            <span>{source.description}</span>
+          </li>
+        ))}
+      </ul>
+
+      <div class="disclaimer">
+        <strong>Disclaimer:</strong> This dashboard presents estimates based on
+        publicly available data and peer-reviewed research. It is intended to
+        illustrate the potential human cost of regulatory delay, not to predict
+        exact outcomes. The authors are advocates for autonomous vehicle deployment
+        and present this data in good faith to inform public discourse. All
+        sources are linked for independent verification.
+      </div>
+    </div>
+  </div>
+</section>

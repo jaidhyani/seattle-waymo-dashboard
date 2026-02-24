@@ -1,0 +1,86 @@
+---
+import data from '../data/fatalities.json';
+
+const yearlyDeaths = data.dcFatalities.byYear;
+const waymoReduction = data.waymoSafety.injuryCrashReduction;
+const conservativeShare = data.waymoSafety.conservativeVMTShare;
+---
+
+<section class="hero">
+  <h1>DC Autonomous Vehicle Delay Dashboard</h1>
+
+  <div class="counter-wrapper">
+    <div class="counter-label">Estimated preventable deaths since Jan 1, 2023</div>
+    <div class="counter-value" id="main-counter">--</div>
+    <div class="counter-sublabel">
+      If DC had permitted autonomous vehicle deployment on schedule
+    </div>
+  </div>
+
+  <div class="counter-scenarios">
+    <div class="scenario">
+      <div class="scenario-label">If all trips were autonomous</div>
+      <div class="scenario-value" id="scenario-full">--</div>
+      <div class="scenario-detail">85% reduction &times; total fatalities</div>
+    </div>
+    <div class="scenario">
+      <div class="scenario-label">Conservative estimate</div>
+      <div class="scenario-value" id="scenario-conservative">--</div>
+      <div class="scenario-detail">85% reduction &times; 10% VMT share (<a href="https://www.prnewswire.com/news-releases/new-study-finds-over-97-of-vehicle-miles-traveled-in-major-us-cities-are-completed-by-personal-and-commercial-vehicles-300896095.html" target="_blank" rel="noopener" style="color: var(--text-dim);">Fehr &amp; Peers</a>)</div>
+    </div>
+  </div>
+</section>
+
+<script define:vars={{ yearlyDeaths, waymoReduction, conservativeShare }}>
+  // Build cumulative death milestones: start of each year
+  // Jan 1, 2023 = 0 cumulative, end of 2023 = 51, end of 2024 = 101, etc.
+  const milestones = [];
+  let cumulative = 0;
+
+  for (const entry of yearlyDeaths) {
+    if (entry.year < 2023) continue;
+    const startOfYear = new Date(entry.year, 0, 1).getTime();
+    milestones.push({ time: startOfYear, deaths: cumulative });
+    cumulative += entry.deaths;
+  }
+  // Add one more for the end of last projected year
+  const lastEntry = yearlyDeaths[yearlyDeaths.length - 1];
+  const endOfLastYear = new Date(lastEntry.year + 1, 0, 1).getTime();
+  milestones.push({ time: endOfLastYear, deaths: cumulative });
+
+  function getCumulativeDeaths(now) {
+    const t = now.getTime();
+
+    if (t <= milestones[0].time) return 0;
+    if (t >= milestones[milestones.length - 1].time) {
+      return milestones[milestones.length - 1].deaths;
+    }
+
+    for (let i = 0; i < milestones.length - 1; i++) {
+      if (t >= milestones[i].time && t < milestones[i + 1].time) {
+        const progress = (t - milestones[i].time) / (milestones[i + 1].time - milestones[i].time);
+        return milestones[i].deaths + progress * (milestones[i + 1].deaths - milestones[i].deaths);
+      }
+    }
+    return 0;
+  }
+
+  const mainCounter = document.getElementById('main-counter');
+  const scenarioFull = document.getElementById('scenario-full');
+  const scenarioConservative = document.getElementById('scenario-conservative');
+
+  function updateCounter() {
+    const now = new Date();
+    const totalDeaths = getCumulativeDeaths(now);
+    const fullReduction = totalDeaths * waymoReduction;
+    const conservativeReduction = totalDeaths * waymoReduction * conservativeShare;
+
+    mainCounter.textContent = fullReduction.toFixed(1);
+    scenarioFull.textContent = fullReduction.toFixed(1);
+    scenarioConservative.textContent = conservativeReduction.toFixed(1);
+
+    requestAnimationFrame(updateCounter);
+  }
+
+  requestAnimationFrame(updateCounter);
+</script>

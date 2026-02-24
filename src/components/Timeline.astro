@@ -1,0 +1,28 @@
+---
+import data from '../data/fatalities.json';
+
+const events = data.timeline;
+---
+
+<section class="section">
+  <div class="container">
+    <h2 class="section-title">The Delay</h2>
+    <p class="section-subtitle">A timeline of DC's autonomous vehicle regulatory failure</p>
+
+    <div class="timeline">
+      {events.map((event, i) => (
+        <div class={`timeline-node ${i === events.length - 1 ? 'active' : ''}`}>
+          <div class="timeline-dot" />
+          <div class="timeline-date">{event.date}</div>
+          <div class="timeline-event">{event.event}</div>
+          <div class="timeline-detail">{event.detail}</div>
+          {event.cumulativeDeaths !== null && event.cumulativeDeaths > 0 && (
+            <div class="timeline-deaths">
+              {event.cumulativeDeaths} road deaths since delay began
+            </div>
+          )}
+        </div>
+      ))}
+    </div>
+  </div>
+</section>
