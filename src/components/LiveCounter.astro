@@ -13,7 +13,9 @@ const conservativeShare = data.waymoSafety.conservativeVMTShare;
     <div class="counter-label">Estimated preventable deaths since Jan 1, 2023</div>
     <div class="counter-value" id="main-counter">--</div>
     <div class="counter-sublabel">
-      If DC had permitted autonomous vehicle deployment on schedule
+      Based on 85% crash reduction &times; 10% VMT share
+      (<a href="https://www.prnewswire.com/news-releases/new-study-finds-over-97-of-vehicle-miles-traveled-in-major-us-cities-are-completed-by-personal-and-commercial-vehicles-300896095.html" target="_blank" rel="noopener" style="color: var(--text-muted);">Fehr &amp; Peers</a>,
+      <a href="https://doi.org/10.1080/15389588.2024.2414537" target="_blank" rel="noopener" style="color: var(--text-muted);">Kusano et al.</a>)
     </div>
   </div>
 
@@ -21,12 +23,12 @@ const conservativeShare = data.waymoSafety.conservativeVMTShare;
     <div class="scenario">
       <div class="scenario-label">If all trips were autonomous</div>
       <div class="scenario-value" id="scenario-full">--</div>
-      <div class="scenario-detail">85% reduction &times; total fatalities</div>
+      <div class="scenario-detail">85% reduction &times; total fatalities (upper bound)</div>
     </div>
     <div class="scenario">
-      <div class="scenario-label">Conservative estimate</div>
-      <div class="scenario-value" id="scenario-conservative">--</div>
-      <div class="scenario-detail">85% reduction &times; 10% VMT share (<a href="https://www.prnewswire.com/news-releases/new-study-finds-over-97-of-vehicle-miles-traveled-in-major-us-cities-are-completed-by-personal-and-commercial-vehicles-300896095.html" target="_blank" rel="noopener" style="color: var(--text-dim);">Fehr &amp; Peers</a>)</div>
+      <div class="scenario-label">Total DC road deaths</div>
+      <div class="scenario-value" id="scenario-total" style="color: var(--text);">--</div>
+      <div class="scenario-detail">Cumulative since Jan 1, 2023</div>
     </div>
   </div>
 </section>
@@ -67,7 +69,7 @@ const conservativeShare = data.waymoSafety.conservativeVMTShare;
 
   const mainCounter = document.getElementById('main-counter');
   const scenarioFull = document.getElementById('scenario-full');
-  const scenarioConservative = document.getElementById('scenario-conservative');
+  const scenarioTotal = document.getElementById('scenario-total');
 
   function updateCounter() {
     const now = new Date();
@@ -75,9 +77,9 @@ const conservativeShare = data.waymoSafety.conservativeVMTShare;
     const fullReduction = totalDeaths * waymoReduction;
     const conservativeReduction = totalDeaths * waymoReduction * conservativeShare;
 
-    mainCounter.textContent = fullReduction.toFixed(1);
+    mainCounter.textContent = conservativeReduction.toFixed(1);
     scenarioFull.textContent = fullReduction.toFixed(1);
-    scenarioConservative.textContent = conservativeReduction.toFixed(1);
+    scenarioTotal.textContent = totalDeaths.toFixed(0);
 
     requestAnimationFrame(updateCounter);
   }
