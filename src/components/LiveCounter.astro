@@ -77,9 +77,9 @@ const conservativeShare = data.waymoSafety.conservativeVMTShare;
     const fullReduction = totalDeaths * waymoReduction;
     const conservativeReduction = totalDeaths * waymoReduction * conservativeShare;
 
-    mainCounter.textContent = conservativeReduction.toFixed(1);
-    scenarioFull.textContent = fullReduction.toFixed(1);
-    scenarioTotal.textContent = totalDeaths.toFixed(0);
+    mainCounter.textContent = Math.round(conservativeReduction);
+    scenarioFull.textContent = Math.round(fullReduction);
+    scenarioTotal.textContent = Math.round(totalDeaths);
 
     requestAnimationFrame(updateCounter);
   }
