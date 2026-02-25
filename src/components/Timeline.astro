@@ -84,8 +84,8 @@ const citySpans = permits
     // Short names for labels
     var shortName = { 'Los Angeles': 'LA' };
 
-    // Column assignment: LA=0, Austin=1, Atlanta=0 (LA and Atlanta don't overlap)
-    var columns = [0, 1, 0];
+    // Each city gets its own column
+    var columns = [2, 1, 0];
 
     citySpans.forEach((city, i) => {
       const startY = dateToY(city.testStart);
