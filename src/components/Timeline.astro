@@ -90,7 +90,7 @@ const citySpans = permits
     citySpans.forEach((city, i) => {
       const startY = dateToY(city.testStart);
       const endY = dateToY(city.launch);
-      const height = Math.max(endY - startY, 60);
+      const height = Math.max(endY - startY, 80);
       const name = shortName[city.city] || city.city;
       const col = columns[i] !== undefined ? columns[i] : i;
 
@@ -98,7 +98,7 @@ const citySpans = permits
       span.className = 'city-span';
       span.style.top = startY + 'px';
       span.style.height = height + 'px';
-      span.style.right = (10 + col * 130) + 'px';
+      span.style.right = (10 + col * 170) + 'px';
 
       span.innerHTML =
         '<div class="city-span-label top">' + name + ' begins testing</div>' +
