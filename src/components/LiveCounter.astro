@@ -21,11 +21,6 @@ const conservativeShare = data.waymoSafety.conservativeVMTShare;
 
   <div class="counter-scenarios">
     <div class="scenario">
-      <div class="scenario-label">If all trips were autonomous</div>
-      <div class="scenario-value" id="scenario-full">--</div>
-      <div class="scenario-detail">85% reduction &times; total fatalities (upper bound)</div>
-    </div>
-    <div class="scenario">
       <div class="scenario-label">Total DC road deaths</div>
       <div class="scenario-value" id="scenario-total" style="color: var(--text);">--</div>
       <div class="scenario-detail">Cumulative since Jan 1, 2023</div>
@@ -68,17 +63,14 @@ const conservativeShare = data.waymoSafety.conservativeVMTShare;
   }
 
   const mainCounter = document.getElementById('main-counter');
-  const scenarioFull = document.getElementById('scenario-full');
   const scenarioTotal = document.getElementById('scenario-total');
 
   function updateCounter() {
     const now = new Date();
     const totalDeaths = getCumulativeDeaths(now);
-    const fullReduction = totalDeaths * waymoReduction;
     const conservativeReduction = totalDeaths * waymoReduction * conservativeShare;
 
     mainCounter.textContent = Math.round(conservativeReduction);
-    scenarioFull.textContent = Math.round(fullReduction);
     scenarioTotal.textContent = Math.round(totalDeaths);
 
     requestAnimationFrame(updateCounter);

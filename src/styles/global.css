@@ -2,7 +2,7 @@
   --bg: #0a0a0a;
   --bg-card: #141414;
   --bg-card-alt: #1a1a1a;
-  --text: #e0e0e0;
+  --text: #e8e8e8;
   --text-muted: #888;
   --text-dim: #555;
   --red: #ff3333;
@@ -12,7 +12,7 @@
   --blue: #4a9eff;
   --green: #4aff9e;
   --yellow: #ffd94a;
-  --border: #222;
+  --border: rgba(255,255,255,0.06);
   --max-width: 1100px;
   --font-mono: 'SF Mono', 'Fira Code', 'Consolas', monospace;
 }
@@ -33,16 +33,19 @@ body {
   background: var(--bg);
   color: var(--text);
   line-height: 1.6;
+  letter-spacing: 0.01em;
   -webkit-font-smoothing: antialiased;
 }
 
 a {
   color: var(--blue);
   text-decoration: none;
+  transition: color 0.2s ease;
 }
 
 a:hover {
-  text-decoration: underline;
+  color: #6db3ff;
+  text-decoration: none;
 }
 
 .container {
@@ -55,7 +58,19 @@ a:hover {
 .hero {
   text-align: center;
   padding: 80px 24px 60px;
-  border-bottom: 1px solid var(--border);
+  border-bottom: none;
+  position: relative;
+}
+
+.hero::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 80%;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--border), transparent);
 }
 
 .hero h1 {
@@ -63,7 +78,7 @@ a:hover {
   font-weight: 400;
   color: var(--text-muted);
   text-transform: uppercase;
-  letter-spacing: 3px;
+  letter-spacing: 2.5px;
   margin-bottom: 32px;
 }
 
@@ -101,9 +116,9 @@ a:hover {
 }
 
 .scenario {
-  background: var(--bg-card);
+  background: linear-gradient(135deg, var(--bg-card), var(--bg-card-alt));
   border: 1px solid var(--border);
-  border-radius: 12px;
+  border-radius: 16px;
   padding: 24px 32px;
   min-width: 260px;
 }
@@ -131,17 +146,30 @@ a:hover {
 
 /* Section Styling */
 .section {
-  padding: 64px 0;
-  border-bottom: 1px solid var(--border);
+  padding: 72px 0;
+  border-bottom: none;
+  position: relative;
 }
 
-.section:last-child {
-  border-bottom: none;
+.section::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 80%;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--border), transparent);
+}
+
+.section:last-child::after {
+  display: none;
 }
 
 .section-title {
   font-size: 1.6rem;
-  font-weight: 600;
+  font-weight: 700;
+  letter-spacing: -0.01em;
   margin-bottom: 8px;
 }
 
@@ -230,15 +258,16 @@ a:hover {
 }
 
 .data-panel {
-  background: var(--bg-card);
+  background: linear-gradient(135deg, var(--bg-card), var(--bg-card-alt));
   border: 1px solid var(--border);
-  border-radius: 12px;
-  padding: 32px;
+  border-radius: 16px;
+  padding: 36px;
 }
 
 .data-panel h3 {
   font-size: 1.15rem;
-  font-weight: 600;
+  font-weight: 700;
+  letter-spacing: -0.01em;
   margin-bottom: 20px;
 }
 
@@ -295,7 +324,7 @@ a:hover {
 
 .bar-track {
   flex: 1;
-  height: 24px;
+  height: 28px;
   background: var(--bg-card-alt);
   border-radius: 4px;
   overflow: hidden;
@@ -335,7 +364,7 @@ a:hover {
 .city-comparison-table th,
 .city-comparison-table td {
   text-align: left;
-  padding: 12px 16px;
+  padding: 14px 18px;
   border-bottom: 1px solid var(--border);
 }
 
@@ -449,14 +478,56 @@ a:hover {
 }
 
 .disclaimer {
-  background: var(--bg-card);
+  background: linear-gradient(135deg, var(--bg-card), var(--bg-card-alt));
   border: 1px solid var(--border);
-  border-radius: 8px;
+  border-radius: 16px;
   padding: 20px 24px;
   margin-top: 24px;
   font-size: 0.85rem;
   color: var(--text-muted);
   line-height: 1.7;
+}
+
+/* Permit Timeline Chart */
+.permit-chart {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.permit-chart .bar-row {
+  margin-bottom: 0;
+}
+
+.bar-city {
+  font-size: 0.85rem;
+  color: var(--text-muted);
+  width: 140px;
+  flex-shrink: 0;
+  text-align: right;
+  padding-right: 4px;
+}
+
+.bar-fill.approved {
+  background: var(--green);
+  opacity: 0.7;
+}
+
+.bar-fill.waiting {
+  opacity: 0.9;
+  background: repeating-linear-gradient(
+    -45deg,
+    var(--red),
+    var(--red) 4px,
+    transparent 4px,
+    transparent 8px
+  );
+  animation: pulse-bar 2s ease-in-out infinite;
+}
+
+@keyframes pulse-bar {
+  0%, 100% { opacity: 0.6; }
+  50% { opacity: 1; }
 }
 
 /* Footer */
@@ -494,7 +565,12 @@ a:hover {
   }
 
   .section {
-    padding: 40px 0;
+    padding: 48px 0;
+  }
+
+  .bar-city {
+    width: 100px;
+    font-size: 0.78rem;
   }
 
   .container {
