@@ -77,8 +77,6 @@
     ]
   },
   "permitTimeline": [
-    { "city": "Phoenix, AZ", "testStart": "2017-01", "commercialLaunch": "2020-10", "months": 45, "status": "approved" },
-    { "city": "San Francisco, CA", "testStart": "2019-08", "commercialLaunch": "2023-08", "months": 48, "status": "approved" },
     { "city": "Los Angeles, CA", "testStart": "2023-03", "commercialLaunch": "2024-03", "months": 12, "status": "approved" },
     { "city": "Austin, TX", "testStart": "2024-01", "commercialLaunch": "2025-04", "months": 15, "status": "approved" },
     { "city": "Atlanta, GA", "testStart": "2025-01", "commercialLaunch": "2025-06", "months": 5, "status": "approved" },
