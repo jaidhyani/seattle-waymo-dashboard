@@ -12,7 +12,8 @@
   --blue: #4a9eff;
   --green: #4aff9e;
   --yellow: #ffd94a;
-  --border: rgba(255,255,255,0.06);
+  --border: rgba(255,255,255,0.08);
+  --card-shadow: 0 2px 16px rgba(0,0,0,0.4), 0 0 1px rgba(255,255,255,0.05);
   --max-width: 1100px;
   --font-mono: 'SF Mono', 'Fira Code', 'Consolas', monospace;
 }
@@ -70,7 +71,7 @@ a:hover {
   transform: translateX(-50%);
   width: 80%;
   height: 1px;
-  background: linear-gradient(90deg, transparent, var(--border), transparent);
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.1), transparent);
 }
 
 .hero h1 {
@@ -84,6 +85,19 @@ a:hover {
 
 .counter-wrapper {
   margin-bottom: 16px;
+  position: relative;
+}
+
+.counter-wrapper::before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 400px;
+  height: 200px;
+  background: radial-gradient(ellipse, rgba(255, 51, 51, 0.08) 0%, transparent 70%);
+  pointer-events: none;
 }
 
 .counter-value {
@@ -116,11 +130,12 @@ a:hover {
 }
 
 .scenario {
-  background: linear-gradient(135deg, var(--bg-card), var(--bg-card-alt));
+  background: linear-gradient(145deg, #161616, #1c1c1c);
   border: 1px solid var(--border);
   border-radius: 16px;
   padding: 24px 32px;
   min-width: 260px;
+  box-shadow: var(--card-shadow);
 }
 
 .scenario-label {
@@ -159,7 +174,7 @@ a:hover {
   transform: translateX(-50%);
   width: 80%;
   height: 1px;
-  background: linear-gradient(90deg, transparent, var(--border), transparent);
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.1), transparent);
 }
 
 .section:last-child::after {
@@ -258,10 +273,11 @@ a:hover {
 }
 
 .data-panel {
-  background: linear-gradient(135deg, var(--bg-card), var(--bg-card-alt));
+  background: linear-gradient(145deg, #161616, #1c1c1c);
   border: 1px solid var(--border);
   border-radius: 16px;
   padding: 36px;
+  box-shadow: var(--card-shadow);
 }
 
 .data-panel h3 {
@@ -325,15 +341,15 @@ a:hover {
 .bar-track {
   flex: 1;
   height: 28px;
-  background: var(--bg-card-alt);
-  border-radius: 4px;
+  background: rgba(255,255,255,0.04);
+  border-radius: 6px;
   overflow: hidden;
 }
 
 .bar-fill {
   height: 100%;
   background: var(--red);
-  border-radius: 4px;
+  border-radius: 6px;
   transition: width 0.6s ease;
   opacity: 0.8;
 }
@@ -399,8 +415,9 @@ a:hover {
 
 .cause-item {
   background: var(--bg-card-alt);
-  padding: 16px;
-  border-radius: 8px;
+  border: 1px solid var(--border);
+  padding: 18px;
+  border-radius: 12px;
 }
 
 .cause-pct {
@@ -478,11 +495,12 @@ a:hover {
 }
 
 .disclaimer {
-  background: linear-gradient(135deg, var(--bg-card), var(--bg-card-alt));
+  background: linear-gradient(145deg, #161616, #1c1c1c);
   border: 1px solid var(--border);
   border-radius: 16px;
-  padding: 20px 24px;
-  margin-top: 24px;
+  padding: 24px 28px;
+  margin-top: 28px;
+  box-shadow: var(--card-shadow);
   font-size: 0.85rem;
   color: var(--text-muted);
   line-height: 1.7;
