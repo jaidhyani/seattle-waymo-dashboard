@@ -205,14 +205,7 @@ a:hover {
   margin-bottom: 40px;
 }
 
-/* Timeline + Gantt layout */
-.delay-layout {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 48px;
-  align-items: start;
-}
-
+/* Timeline */
 .timeline {
   position: relative;
   padding-left: 32px;
@@ -231,10 +224,46 @@ a:hover {
 .timeline-node {
   position: relative;
   margin-bottom: 36px;
+  display: flex;
+  gap: 24px;
+  align-items: flex-start;
 }
 
 .timeline-node:last-child {
   margin-bottom: 0;
+}
+
+.timeline-node-content {
+  flex: 1;
+  min-width: 0;
+}
+
+.timeline-milestones {
+  width: 180px;
+  flex-shrink: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  padding-top: 2px;
+}
+
+.milestone {
+  font-size: 0.75rem;
+  padding: 4px 10px;
+  border-radius: 6px;
+  white-space: nowrap;
+}
+
+.milestone.testing {
+  color: var(--text-muted);
+  background: rgba(255,255,255,0.04);
+  border: 1px solid var(--border);
+}
+
+.milestone.launch {
+  color: var(--green);
+  background: rgba(74, 255, 158, 0.08);
+  border: 1px solid rgba(74, 255, 158, 0.15);
 }
 
 .timeline-dot {
@@ -283,25 +312,7 @@ a:hover {
   margin-top: 6px;
 }
 
-/* Gantt Panel */
-.gantt-panel {
-  background: linear-gradient(145deg, #161616, #1c1c1c);
-  border: 1px solid var(--border);
-  border-radius: 16px;
-  padding: 28px 24px;
-  box-shadow: var(--card-shadow);
-  position: sticky;
-  top: 24px;
-}
-
-.gantt-header {
-  font-size: 0.8rem;
-  text-transform: uppercase;
-  letter-spacing: 1.5px;
-  color: var(--text-muted);
-  margin-bottom: 20px;
-}
-
+/* Gantt Chart */
 .gantt-chart {
   display: flex;
   flex-direction: column;
@@ -652,48 +663,6 @@ a:hover {
   line-height: 1.7;
 }
 
-/* Permit Timeline Chart */
-.permit-chart {
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-}
-
-.permit-chart .bar-row {
-  margin-bottom: 0;
-}
-
-.bar-city {
-  font-size: 0.85rem;
-  color: var(--text-muted);
-  width: 140px;
-  flex-shrink: 0;
-  text-align: right;
-  padding-right: 4px;
-}
-
-.bar-fill.approved {
-  background: var(--green);
-  opacity: 0.7;
-}
-
-.bar-fill.waiting {
-  opacity: 0.9;
-  background: repeating-linear-gradient(
-    -45deg,
-    var(--red),
-    var(--red) 4px,
-    transparent 4px,
-    transparent 8px
-  );
-  animation: pulse-bar 2s ease-in-out infinite;
-}
-
-@keyframes pulse-bar {
-  0%, 100% { opacity: 0.6; }
-  50% { opacity: 1; }
-}
-
 /* Footer */
 .footer {
   text-align: center;
@@ -720,13 +689,15 @@ a:hover {
     max-width: 340px;
   }
 
-  .delay-layout {
-    grid-template-columns: 1fr;
-    gap: 32px;
+  .timeline-node {
+    flex-direction: column;
+    gap: 10px;
   }
 
-  .gantt-panel {
-    position: static;
+  .timeline-milestones {
+    width: auto;
+    flex-direction: row;
+    flex-wrap: wrap;
   }
 
   .data-grid {
@@ -739,11 +710,6 @@ a:hover {
 
   .section {
     padding: 48px 0;
-  }
-
-  .bar-city {
-    width: 100px;
-    font-size: 0.78rem;
   }
 
   .container {

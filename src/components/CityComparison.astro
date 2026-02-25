@@ -1,38 +1,71 @@
 ---
 import data from '../data/fatalities.json';
 
-const permitTimeline = data.permitTimeline;
-const maxMonths = Math.max(...permitTimeline.map(c => c.months));
+const permits = data.permitTimeline;
 const causes = data.dcFatalities.causeBreakdown;
+
+// Time axis: Jan 2023 to Mar 2026 = 38 months
+const axisStart = new Date(2023, 0, 1).getTime();
+const axisEnd = new Date(2026, 2, 1).getTime();
+const axisSpan = axisEnd - axisStart;
+
+function monthToTime(ym: string) {
+  const [y, m] = ym.split('-').map(Number);
+  return new Date(y, m - 1, 1).getTime();
+}
+
+const cityBars = permits.map(city => {
+  const start = monthToTime(city.testStart);
+  const end = city.commercialLaunch ? monthToTime(city.commercialLaunch) : axisEnd;
+  return {
+    city: city.city.replace(/, \w+$/, ''),
+    left: ((start - axisStart) / axisSpan) * 100,
+    width: ((end - start) / axisSpan) * 100,
+    status: city.status,
+    months: city.months,
+  };
+});
+
+const axisYears = [2023, 2024, 2025, 2026];
+const yearMarks = axisYears.map(y => ({
+  year: y,
+  left: ((new Date(y, 0, 1).getTime() - axisStart) / axisSpan) * 100,
+}));
 ---
 
 <section class="section">
   <div class="container">
     <div class="data-grid">
       <div class="data-panel">
-        <h3>Time to Permit: Testing → Commercial Launch</h3>
+        <h3>Meanwhile, Elsewhere</h3>
         <p style="font-size: 0.85rem; color: var(--text-muted); margin-bottom: 20px;">
           Months from first Waymo testing to commercial ride-hail service
         </p>
-        <div class="permit-chart">
-          {permitTimeline.map(city => (
-            <div class="bar-row">
-              <div class="bar-city">{city.city}</div>
-              <div class="bar-track">
+        <div class="gantt-chart">
+          <div class="gantt-axis">
+            {yearMarks.map(ym => (
+              <div class="gantt-year" style={`left: ${ym.left}%`}>{ym.year}</div>
+            ))}
+          </div>
+          {cityBars.map(bar => (
+            <div class="gantt-row">
+              <div class="gantt-city">{bar.city}</div>
+              <div class="gantt-track">
                 <div
-                  class={`bar-fill ${city.status}`}
-                  style={`width: ${(city.months / maxMonths) * 100}%`}
+                  class={`gantt-bar ${bar.status}`}
+                  style={`left: ${bar.left}%; width: ${bar.width}%`}
                 />
               </div>
-              <div class="bar-count">
-                {city.status === 'waiting' ? `${city.months}+` : city.months} mo
+              <div class="gantt-label">
+                {bar.status === 'waiting' ? `${bar.months}+ mo` : `${bar.months} mo`}
               </div>
             </div>
           ))}
+          <div class="gantt-legend">
+            <span class="gantt-legend-item"><span class="gantt-dot approved" /> Testing → launched</span>
+            <span class="gantt-legend-item"><span class="gantt-dot waiting" /> Testing → still waiting</span>
+          </div>
         </div>
-        <p style="font-size: 0.75rem; color: var(--text-dim); margin-top: 14px;">
-          DC has been testing since April 2024 with no commercial permit in sight.
-        </p>
       </div>
 
       <div class="data-panel">
