@@ -81,21 +81,29 @@ const citySpans = permits
       return nodeData[nodeData.length - 1].y;
     }
 
+    // Short names for labels
+    var shortName = { 'Los Angeles': 'LA' };
+
+    // Column assignment: LA=0, Austin=1, Atlanta=0 (LA and Atlanta don't overlap)
+    var columns = [0, 1, 0];
+
     citySpans.forEach((city, i) => {
       const startY = dateToY(city.testStart);
       const endY = dateToY(city.launch);
-      const height = Math.max(endY - startY, 30);
+      const height = Math.max(endY - startY, 60);
+      const name = shortName[city.city] || city.city;
+      const col = columns[i] !== undefined ? columns[i] : i;
 
       const span = document.createElement('div');
       span.className = 'city-span';
       span.style.top = startY + 'px';
       span.style.height = height + 'px';
-      span.style.right = (10 + i * 140) + 'px';
+      span.style.right = (10 + col * 130) + 'px';
 
       span.innerHTML =
-        '<div class="city-span-label top">' + city.city + ' begins testing</div>' +
+        '<div class="city-span-label top">' + name + ' begins testing</div>' +
         '<div class="city-span-bar"></div>' +
-        '<div class="city-span-label bottom">' + city.city + ' launches \u2713</div>';
+        '<div class="city-span-label bottom">' + name + ' launches \u2713</div>';
 
       container.appendChild(span);
     });
