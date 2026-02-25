@@ -4,49 +4,18 @@ import data from '../data/fatalities.json';
 const events = data.timeline;
 const permits = data.permitTimeline;
 
-// Parse timeline date strings to timestamps
-function parseTimelineDate(d: string): number {
-  if (/^\d{4}$/.test(d)) return new Date(parseInt(d), 0, 1).getTime();
-  const monthMap: Record<string, number> = {
-    Jan: 0, Feb: 1, Mar: 2, April: 3, Apr: 3, May: 4, Jun: 5,
-    July: 6, Jul: 6, Aug: 7, Sep: 8, Oct: 9, Nov: 10, Dec: 11, Late: 9,
-  };
-  const parts = d.split(' ');
-  const month = monthMap[parts[0]] ?? 0;
-  const year = parseInt(parts[parts.length - 1]);
-  return new Date(year, month, 1).getTime();
-}
+// Approximate YYYY-MM for each timeline node (for interpolation)
+const timelineDates = [
+  '2020-01', '2022-10', '2023-01', '2024-04', '2025-07', '2025-12', '2026-02'
+];
 
-function monthToTime(ym: string): number {
-  const [y, m] = ym.split('-').map(Number);
-  return new Date(y, m - 1, 1).getTime();
-}
-
-const nodeTimes = events.map(e => parseTimelineDate(e.date));
-
-// Build city milestones (skip DC)
-type Milestone = { city: string; event: string; type: 'testing' | 'launch'; time: number };
-const cityMilestones: Milestone[] = [];
-for (const city of permits) {
-  if (city.status === 'waiting') continue;
-  const short = city.city.replace(/, \w+$/, '');
-  cityMilestones.push({ city: short, event: `${short} begins testing`, type: 'testing', time: monthToTime(city.testStart) });
-  if (city.commercialLaunch) {
-    cityMilestones.push({ city: short, event: `${short} launches`, type: 'launch', time: monthToTime(city.commercialLaunch) });
-  }
-}
-cityMilestones.sort((a, b) => a.time - b.time);
-
-// Assign each milestone to the last timeline node before it
-const nodeAnnotations: Milestone[][] = events.map(() => []);
-for (const ms of cityMilestones) {
-  let assignTo = 0;
-  for (let i = 0; i < nodeTimes.length; i++) {
-    if (nodeTimes[i] <= ms.time) assignTo = i;
-    else break;
-  }
-  nodeAnnotations[assignTo].push(ms);
-}
+const citySpans = permits
+  .filter(c => c.status === 'approved')
+  .map(city => ({
+    city: city.city.replace(/, \w+$/, ''),
+    testStart: city.testStart,
+    launch: city.commercialLaunch,
+  }));
 ---
 
 <section class="section">
@@ -54,31 +23,84 @@ for (const ms of cityMilestones) {
     <h2 class="section-title">The Delay</h2>
     <p class="section-subtitle">A timeline of DC's autonomous vehicle regulatory failure</p>
 
-    <div class="timeline">
+    <div class="timeline" id="dc-timeline">
       {events.map((event, i) => (
-        <div class={`timeline-node ${i === events.length - 1 ? 'active' : ''}`}>
+        <div class={`timeline-node ${i === events.length - 1 ? 'active' : ''}`} data-date={timelineDates[i]}>
           <div class="timeline-dot" />
-          <div class="timeline-node-content">
-            <div class="timeline-date">{event.date}</div>
-            <div class="timeline-event">{event.event}</div>
-            <div class="timeline-detail">{event.detail}</div>
-            {event.cumulativeDeaths !== null && event.cumulativeDeaths > 0 && (
-              <div class="timeline-deaths">
-                {event.cumulativeDeaths} road deaths since delay began
-              </div>
-            )}
-          </div>
-          {nodeAnnotations[i].length > 0 && (
-            <div class="timeline-milestones">
-              {nodeAnnotations[i].map(ms => (
-                <div class={`milestone ${ms.type}`}>
-                  {ms.event}{ms.type === 'launch' ? ' \u2713' : ''}
-                </div>
-              ))}
+          <div class="timeline-date">{event.date}</div>
+          <div class="timeline-event">{event.event}</div>
+          <div class="timeline-detail">{event.detail}</div>
+          {event.cumulativeDeaths !== null && event.cumulativeDeaths > 0 && (
+            <div class="timeline-deaths">
+              {event.cumulativeDeaths} road deaths since delay began
             </div>
           )}
         </div>
       ))}
+
+      <div id="city-spans"></div>
     </div>
   </div>
 </section>
+
+<script define:vars={{ citySpans, timelineDates }}>
+  function parseYM(ym) {
+    const [y, m] = ym.split('-').map(Number);
+    return new Date(y, m - 1, 1).getTime();
+  }
+
+  function positionCityBars() {
+    const timeline = document.getElementById('dc-timeline');
+    const nodes = timeline.querySelectorAll('.timeline-node');
+    const container = document.getElementById('city-spans');
+    if (!timeline || !nodes.length || !container) return;
+
+    container.innerHTML = '';
+    if (window.innerWidth < 768) return;
+
+    const timelineRect = timeline.getBoundingClientRect();
+    const nodeData = [];
+
+    nodes.forEach((node, i) => {
+      const rect = node.getBoundingClientRect();
+      nodeData.push({
+        time: parseYM(timelineDates[i]),
+        y: rect.top - timelineRect.top + 8,
+      });
+    });
+
+    function dateToY(dateStr) {
+      const t = parseYM(dateStr);
+      for (let i = 0; i < nodeData.length - 1; i++) {
+        if (t >= nodeData[i].time && t <= nodeData[i + 1].time) {
+          const p = (t - nodeData[i].time) / (nodeData[i + 1].time - nodeData[i].time);
+          return nodeData[i].y + p * (nodeData[i + 1].y - nodeData[i].y);
+        }
+      }
+      if (t <= nodeData[0].time) return nodeData[0].y;
+      return nodeData[nodeData.length - 1].y;
+    }
+
+    citySpans.forEach((city, i) => {
+      const startY = dateToY(city.testStart);
+      const endY = dateToY(city.launch);
+      const height = Math.max(endY - startY, 30);
+
+      const span = document.createElement('div');
+      span.className = 'city-span';
+      span.style.top = startY + 'px';
+      span.style.height = height + 'px';
+      span.style.right = (10 + i * 140) + 'px';
+
+      span.innerHTML =
+        '<div class="city-span-label top">' + city.city + ' begins testing</div>' +
+        '<div class="city-span-bar"></div>' +
+        '<div class="city-span-label bottom">' + city.city + ' launches \u2713</div>';
+
+      container.appendChild(span);
+    });
+  }
+
+  requestAnimationFrame(() => requestAnimationFrame(positionCityBars));
+  window.addEventListener('resize', positionCityBars);
+</script>

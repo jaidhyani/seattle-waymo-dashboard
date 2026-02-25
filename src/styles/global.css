@@ -224,46 +224,41 @@ a:hover {
 .timeline-node {
   position: relative;
   margin-bottom: 36px;
-  display: flex;
-  gap: 24px;
-  align-items: flex-start;
 }
 
 .timeline-node:last-child {
   margin-bottom: 0;
 }
 
-.timeline-node-content {
-  flex: 1;
-  min-width: 0;
-}
-
-.timeline-milestones {
-  width: 180px;
-  flex-shrink: 0;
+/* City span bars (positioned by JS) */
+.city-span {
+  position: absolute;
+  width: 120px;
   display: flex;
   flex-direction: column;
-  gap: 6px;
-  padding-top: 2px;
+  pointer-events: none;
 }
 
-.milestone {
+.city-span-bar {
+  flex: 1;
+  border: 2px solid rgba(255, 107, 107, 0.45);
+  border-left-width: 3px;
+  border-radius: 4px;
+  background: rgba(255, 107, 107, 0.04);
+}
+
+.city-span-label {
   font-size: 0.75rem;
-  padding: 4px 10px;
-  border-radius: 6px;
+  color: var(--accent);
   white-space: nowrap;
 }
 
-.milestone.testing {
-  color: var(--text-muted);
-  background: rgba(255,255,255,0.04);
-  border: 1px solid var(--border);
+.city-span-label.top {
+  margin-bottom: 6px;
 }
 
-.milestone.launch {
-  color: var(--green);
-  background: rgba(74, 255, 158, 0.08);
-  border: 1px solid rgba(74, 255, 158, 0.15);
+.city-span-label.bottom {
+  margin-top: 6px;
 }
 
 .timeline-dot {
@@ -687,17 +682,6 @@ a:hover {
     min-width: unset;
     width: 100%;
     max-width: 340px;
-  }
-
-  .timeline-node {
-    flex-direction: column;
-    gap: 10px;
-  }
-
-  .timeline-milestones {
-    width: auto;
-    flex-direction: row;
-    flex-wrap: wrap;
   }
 
   .data-grid {
