@@ -128,7 +128,7 @@ a:hover {
 }
 
 .counter-sublabel {
-  font-size: 0.95rem;
+  font-size: 0.65rem;
   color: var(--text-muted);
   margin-bottom: 32px;
 }
