@@ -28,14 +28,12 @@ const waymo = data.waymoSafety;
       <h3>Estimate methodology</h3>
       <p>
         The headline figure applies an 85% any-injury-reported crash reduction to 10%
-        of vehicle miles traveled. The 85% comes from the corrected published version of
+        of vehicle miles traveled. The 85% comes from
         <a href="https://doi.org/10.1080/15389588.2024.2380786" target="_blank" rel="noopener">Kusano et al. (2024)</a>,
         which analyzed 7.1M rider-only miles. A subsequent
         <a href="https://doi.org/10.1080/15389588.2025.2499887" target="_blank" rel="noopener">2025 study</a>
         covering 56.7M miles found a 79% reduction in any-injury-reported crashes (95% CI: 71–85%)
-        and 85% fewer suspected serious injury+ crashes (95% CI: 39–99%). We use 85%
-        as the headline multiplier; the true figure may be closer to 79% for general
-        injury crashes based on the larger dataset.
+        and 85% fewer suspected serious injury+ crashes (95% CI: 39–99%).
       </p>
       <p>
         The 10% VMT share is a conservative proxy for AV ride-hail market share.
@@ -47,10 +45,8 @@ const waymo = data.waymoSafety;
       <h3>Key assumptions &amp; limitations</h3>
       <ul class="assumptions-list">
         <li>
-          The 85% reduction comes from the corrected published version of Kusano et al.'s
-          7.1M-mile study. A larger 56.7M-mile follow-up found 79% for any-injury crashes
-          (95% CI: 71–85%). Using 85% makes this an optimistic estimate; a 79% multiplier
-          would yield a lower figure. Real-world deployment at scale could differ from either.
+          The 85% reduction comes from Kusano et al.'s analysis of {waymo.milesAnalyzed}
+          autonomous miles. Real-world deployment at scale could differ.
         </li>
         <li>
           Fatality reductions are extrapolated from injury crash data. Fatality-specific

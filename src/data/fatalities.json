@@ -60,7 +60,7 @@
       {
         "name": "Kusano et al. (2024)",
         "journal": "Traffic Injury Prevention",
-        "finding": "85% fewer any-injury-reported crashes over 7.1M autonomous miles (corrected published version)",
+        "finding": "85% fewer any-injury-reported crashes over 7.1M autonomous miles",
         "url": "https://doi.org/10.1080/15389588.2024.2380786"
       },
       {
@@ -145,7 +145,7 @@
     },
     {
       "name": "Kusano et al. (2024)",
-      "description": "Peer-reviewed study: 85% fewer any-injury-reported crashes in 7.1M Waymo miles (corrected published version)",
+      "description": "Peer-reviewed study: 85% fewer any-injury-reported crashes in 7.1M Waymo miles",
       "url": "https://doi.org/10.1080/15389588.2024.2380786"
     },
     {
