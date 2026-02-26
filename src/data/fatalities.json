@@ -1,15 +1,16 @@
 {
   "dcFatalities": {
     "byYear": [
-      { "year": 2019, "deaths": 38 },
+      { "year": 2019, "deaths": 27 },
       { "year": 2020, "deaths": 37 },
       { "year": 2021, "deaths": 40 },
-      { "year": 2022, "deaths": 56 },
-      { "year": 2023, "deaths": 51 },
+      { "year": 2022, "deaths": 35 },
+      { "year": 2023, "deaths": 52 },
       { "year": 2024, "deaths": 50 },
-      { "year": 2025, "deaths": 25, "note": "Extrapolated from partial-year data" },
+      { "year": 2025, "deaths": 25, "note": "NSC estimate" },
       { "year": 2026, "deaths": 25, "note": "Projected using 2025 rate" }
     ],
+    "fatalitySource": "DC MPD / Vision Zero crash data",
     "delayStart": "2023-01-01",
     "causeBreakdown": {
       "drunkDriving": 0.30,
@@ -59,13 +60,13 @@
       {
         "name": "Kusano et al. (2024)",
         "journal": "Traffic Injury Prevention",
-        "finding": "85% fewer injury crashes over 7.1M autonomous miles",
+        "finding": "85% fewer any-injury-reported crashes over 7.1M autonomous miles (corrected published version)",
         "url": "https://doi.org/10.1080/15389588.2024.2380786"
       },
       {
         "name": "Kusano et al. (2025)",
         "journal": "Traffic Injury Prevention",
-        "finding": "90% fewer serious injuries over 56.7M autonomous miles",
+        "finding": "85% fewer suspected serious injury+ crashes, 79% fewer any-injury-reported crashes over 56.7M miles",
         "url": "https://doi.org/10.1080/15389588.2025.2499887"
       },
       {
@@ -105,19 +106,19 @@
       "date": "April 2024",
       "event": "Waymo begins testing in DC with safety drivers",
       "detail": "Limited testing only — no public ride-hail service",
-      "cumulativeDeaths": 65
+      "cumulativeDeaths": 69
     },
     {
       "date": "July 2025",
       "event": "McDuffie introduces B26-0323",
       "detail": "Bill to enable AV deployment in DC",
-      "cumulativeDeaths": 113
+      "cumulativeDeaths": 117
     },
     {
       "date": "Dec 2025",
       "event": "Allen refuses to advance bill",
       "detail": "Councilmember Allen (Ward 6) blocks enabling legislation",
-      "cumulativeDeaths": 123
+      "cumulativeDeaths": 127
     },
     {
       "date": "Feb 2026",
@@ -144,7 +145,7 @@
     },
     {
       "name": "Kusano et al. (2024)",
-      "description": "Peer-reviewed study: 85% fewer injury crashes in 7.1M Waymo miles",
+      "description": "Peer-reviewed study: 85% fewer any-injury-reported crashes in 7.1M Waymo miles (corrected published version)",
       "url": "https://doi.org/10.1080/15389588.2024.2380786"
     },
     {
@@ -164,7 +165,7 @@
     },
     {
       "name": "Kusano et al. (2025) — 56.7M Miles",
-      "description": "Updated peer-reviewed study: 90% fewer serious injuries over 56.7M Waymo miles",
+      "description": "Updated peer-reviewed study: 85% fewer suspected serious injury+ crashes over 56.7M Waymo miles",
       "url": "https://doi.org/10.1080/15389588.2025.2499887"
     }
   ]
