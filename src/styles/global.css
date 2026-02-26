@@ -681,6 +681,15 @@ a:hover {
     padding: 48px 16px 40px;
   }
 
+  .hero h1 {
+    font-size: 0.85rem;
+    letter-spacing: 1.5px;
+  }
+
+  .counter-label {
+    font-size: 1.05rem;
+  }
+
   .counter-scenarios {
     flex-direction: column;
     align-items: center;
@@ -691,21 +700,186 @@ a:hover {
     min-width: unset;
     width: 100%;
     max-width: 340px;
+    padding: 18px 20px;
   }
 
-  .data-grid {
-    grid-template-columns: 1fr;
-  }
-
-  .cause-grid {
-    grid-template-columns: 1fr;
+  .scenario-value {
+    font-size: 1.8rem;
   }
 
   .section {
     padding: 48px 0;
   }
 
+  .section-title {
+    font-size: 1.3rem;
+  }
+
+  .section-subtitle {
+    font-size: 0.85rem;
+    margin-bottom: 28px;
+  }
+
   .container {
     padding: 0 16px;
+  }
+
+  .data-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .data-panel {
+    padding: 20px;
+    border-radius: 12px;
+  }
+
+  .data-panel h3 {
+    font-size: 1.05rem;
+  }
+
+  /* Stat rows: stack label above value on narrow screens */
+  .stat-row {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 2px;
+    padding: 8px 0;
+  }
+
+  .stat-label {
+    font-size: 0.82rem;
+  }
+
+  .stat-value {
+    font-size: 0.95rem;
+  }
+
+  /* Bar chart */
+  .bar-track {
+    height: 22px;
+  }
+
+  .bar-year {
+    font-size: 0.8rem;
+    width: 36px;
+  }
+
+  .bar-count {
+    font-size: 0.8rem;
+    width: 26px;
+  }
+
+  /* Ride-hail table: make scrollable and tighter */
+  .city-comparison-table {
+    display: block;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  .city-comparison-table thead,
+  .city-comparison-table tbody,
+  .city-comparison-table tr {
+    display: table;
+    width: 100%;
+    table-layout: fixed;
+  }
+
+  .city-comparison-table th,
+  .city-comparison-table td {
+    padding: 10px 8px;
+    font-size: 0.8rem;
+  }
+
+  .city-comparison-table th {
+    font-size: 0.7rem;
+  }
+
+  /* Gantt chart */
+  .gantt-city {
+    width: 48px;
+    font-size: 0.7rem;
+  }
+
+  .gantt-label {
+    width: 40px;
+    font-size: 0.65rem;
+  }
+
+  .gantt-year {
+    font-size: 0.6rem;
+  }
+
+  .gantt-legend {
+    flex-direction: column;
+    gap: 6px;
+  }
+
+  /* Cause grid */
+  .cause-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .cause-item {
+    padding: 14px;
+  }
+
+  .cause-pct {
+    font-size: 1.3rem;
+  }
+
+  /* Timeline: tighter spacing since span bars are hidden */
+  .timeline-node {
+    margin-bottom: 36px;
+  }
+
+  .timeline-event {
+    font-size: 0.95rem;
+  }
+
+  .timeline-detail {
+    font-size: 0.82rem;
+  }
+
+  .timeline-deaths {
+    font-size: 0.72rem;
+    padding: 2px 8px;
+  }
+
+  /* Methodology */
+  .methodology-content h3 {
+    font-size: 1rem;
+  }
+
+  .methodology-content p {
+    font-size: 0.88rem;
+  }
+
+  .disclaimer {
+    padding: 18px 16px;
+    font-size: 0.8rem;
+  }
+}
+
+/* Extra-small screens */
+@media (max-width: 400px) {
+  .hero h1 {
+    font-size: 0.75rem;
+    letter-spacing: 1px;
+  }
+
+  .counter-value {
+    font-size: 3rem;
+  }
+
+  .data-panel {
+    padding: 16px;
+  }
+
+  .gantt-city {
+    width: 36px;
+    font-size: 0.65rem;
+  }
+
+  .gantt-label {
+    width: 32px;
   }
 }
