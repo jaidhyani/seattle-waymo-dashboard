@@ -1,21 +1,23 @@
 :root {
-  --bg: #0a0a0a;
-  --bg-card: #141414;
-  --bg-card-alt: #1a1a1a;
+  --bg: #121212;
+  --bg-card: #1a1a1a;
+  --bg-card-alt: #222222;
   --text: #e8e8e8;
-  --text-muted: #888;
-  --text-dim: #555;
-  --red: #ff3333;
-  --red-dim: #cc2222;
-  --red-glow: rgba(255, 51, 51, 0.15);
-  --accent: #ff6b6b;
-  --blue: #4a9eff;
+  --text-muted: #999;
+  --text-dim: #666;
+  --orange: #FF4F00;
+  --orange-dim: #cc3f00;
+  --orange-glow: rgba(255, 79, 0, 0.15);
+  --accent: #FF4F00;
+  --blue: #4997D0;
   --green: #4aff9e;
-  --yellow: #ffd94a;
+  --yellow: #FFA300;
   --border: rgba(255,255,255,0.08);
   --card-shadow: 0 2px 16px rgba(0,0,0,0.4), 0 0 1px rgba(255,255,255,0.05);
   --max-width: 1100px;
-  --font-mono: 'SF Mono', 'Fira Code', 'Consolas', monospace;
+  --font-serif: 'IBM Plex Serif', Georgia, 'Times New Roman', serif;
+  --font-sans: 'IBM Plex Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+  --font-mono: 'IBM Plex Mono', 'SF Mono', 'Fira Code', monospace;
 }
 
 *, *::before, *::after {
@@ -29,8 +31,7 @@ html {
 }
 
 body {
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen,
-    Ubuntu, Cantarell, sans-serif;
+  font-family: var(--font-serif);
   background: var(--bg);
   color: var(--text);
   line-height: 1.6;
@@ -56,7 +57,7 @@ a {
 }
 
 a:hover {
-  color: #6db3ff;
+  color: #6db8e0;
   text-decoration: none;
 }
 
@@ -86,6 +87,7 @@ a:hover {
 }
 
 .hero h1 {
+  font-family: var(--font-sans);
   font-size: 1.1rem;
   font-weight: 400;
   color: var(--text-muted);
@@ -107,7 +109,7 @@ a:hover {
   transform: translate(-50%, -50%);
   width: 400px;
   height: 200px;
-  background: radial-gradient(ellipse, rgba(255, 51, 51, 0.08) 0%, transparent 70%);
+  background: radial-gradient(ellipse, rgba(255, 79, 0, 0.08) 0%, transparent 70%);
   pointer-events: none;
 }
 
@@ -115,12 +117,13 @@ a:hover {
   font-family: var(--font-mono);
   font-size: clamp(3.5rem, 10vw, 7rem);
   font-weight: 700;
-  color: var(--red);
-  text-shadow: 0 0 40px var(--red-glow), 0 0 80px var(--red-glow);
+  color: var(--orange);
+  text-shadow: 0 0 40px var(--orange-glow), 0 0 80px var(--orange-glow);
   line-height: 1.1;
 }
 
 .counter-label {
+  font-family: var(--font-serif);
   font-size: 1.3rem;
   color: var(--text);
   margin-bottom: 8px;
@@ -128,6 +131,7 @@ a:hover {
 }
 
 .counter-sublabel {
+  font-family: var(--font-sans);
   font-size: 0.65rem;
   color: var(--text-muted);
   margin-bottom: 32px;
@@ -150,6 +154,7 @@ a:hover {
 }
 
 .scenario-label {
+  font-family: var(--font-sans);
   font-size: 0.8rem;
   color: var(--text-muted);
   text-transform: uppercase;
@@ -161,7 +166,7 @@ a:hover {
   font-family: var(--font-mono);
   font-size: 2.4rem;
   font-weight: 700;
-  color: var(--red);
+  color: var(--orange);
 }
 
 .scenario-detail {
@@ -193,6 +198,7 @@ a:hover {
 }
 
 .section-title {
+  font-family: var(--font-sans);
   font-size: 1.6rem;
   font-weight: 700;
   letter-spacing: -0.01em;
@@ -200,6 +206,7 @@ a:hover {
 }
 
 .section-subtitle {
+  font-family: var(--font-sans);
   font-size: 0.95rem;
   color: var(--text-muted);
   margin-bottom: 40px;
@@ -241,10 +248,10 @@ a:hover {
 
 .city-span-bar {
   flex: 1;
-  border: 2px solid rgba(255, 107, 107, 0.4);
+  border: 2px solid rgba(255, 79, 0, 0.4);
   border-left-width: 3px;
   border-radius: 6px;
-  background: rgba(255, 107, 107, 0.04);
+  background: rgba(255, 79, 0, 0.04);
   min-height: 40px;
 }
 
@@ -274,9 +281,9 @@ a:hover {
 }
 
 .timeline-node.active .timeline-dot {
-  border-color: var(--red);
-  background: var(--red);
-  box-shadow: 0 0 12px var(--red-glow);
+  border-color: var(--orange);
+  background: var(--orange);
+  box-shadow: 0 0 12px var(--orange-glow);
 }
 
 .timeline-date {
@@ -301,8 +308,8 @@ a:hover {
   display: inline-block;
   font-family: var(--font-mono);
   font-size: 0.8rem;
-  color: var(--red);
-  background: var(--red-glow);
+  color: var(--orange);
+  background: var(--orange-glow);
   padding: 2px 10px;
   border-radius: 4px;
   margin-top: 6px;
@@ -369,8 +376,8 @@ a:hover {
 .gantt-bar.waiting {
   background: repeating-linear-gradient(
     -45deg,
-    var(--red),
-    var(--red) 3px,
+    var(--orange),
+    var(--orange) 3px,
     transparent 3px,
     transparent 6px
   );
@@ -414,7 +421,7 @@ a:hover {
 }
 
 .gantt-dot.waiting {
-  background: var(--red);
+  background: var(--orange);
   opacity: 0.8;
 }
 
@@ -434,8 +441,9 @@ a:hover {
 }
 
 .data-panel h3 {
+  font-family: var(--font-sans);
   font-size: 1.15rem;
-  font-weight: 700;
+  font-weight: 600;
   letter-spacing: -0.01em;
   margin-bottom: 20px;
 }
@@ -464,7 +472,7 @@ a:hover {
 }
 
 .stat-value.highlight {
-  color: var(--red);
+  color: var(--orange);
 }
 
 .stat-value.green {
@@ -501,7 +509,7 @@ a:hover {
 
 .bar-fill {
   height: 100%;
-  background: var(--red);
+  background: var(--orange);
   border-radius: 6px;
   transition: width 0.6s ease;
   opacity: 0.8;
@@ -511,8 +519,8 @@ a:hover {
   opacity: 0.4;
   background: repeating-linear-gradient(
     -45deg,
-    var(--red),
-    var(--red) 4px,
+    var(--orange),
+    var(--orange) 4px,
     transparent 4px,
     transparent 8px
   );
@@ -555,7 +563,7 @@ a:hover {
 }
 
 .city-comparison-table tr.dc td {
-  color: var(--red);
+  color: var(--orange);
 }
 
 /* Cause breakdown */
