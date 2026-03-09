@@ -1,19 +1,44 @@
 {
   "dcFatalities": {
     "byYear": [
-      { "year": 2019, "deaths": 27 },
-      { "year": 2020, "deaths": 37 },
-      { "year": 2021, "deaths": 40 },
-      { "year": 2022, "deaths": 35 },
-      { "year": 2023, "deaths": 52 },
-      { "year": 2024, "deaths": 52 },
-      { "year": 2025, "deaths": 25 },
-      { "year": 2026, "deaths": 24, "note": "Projected from 6 YTD" }
+      {
+        "year": 2019,
+        "deaths": 27
+      },
+      {
+        "year": 2020,
+        "deaths": 37
+      },
+      {
+        "year": 2021,
+        "deaths": 40
+      },
+      {
+        "year": 2022,
+        "deaths": 35
+      },
+      {
+        "year": 2023,
+        "deaths": 52
+      },
+      {
+        "year": 2024,
+        "deaths": 52
+      },
+      {
+        "year": 2025,
+        "deaths": 25
+      },
+      {
+        "year": 2026,
+        "deaths": 24,
+        "note": "Projected from 6 YTD"
+      }
     ],
     "fatalitySource": "DC MPD / Vision Zero crash data",
     "delayStart": "2023-01-01",
     "causeBreakdown": {
-      "drunkDriving": 0.30,
+      "drunkDriving": 0.3,
       "speeding": 0.29,
       "distraction": 0.08,
       "other": 0.33
@@ -23,7 +48,7 @@
     "injuryCrashReduction": 0.85,
     "pedestrianInjuryReduction": 0.92,
     "intersectionCrashReduction": 0.96,
-    "conservativeVMTShare": 0.10,
+    "conservativeVMTShare": 0.1,
     "milesAnalyzed": "7.1 million",
     "rideHailVMTShare": {
       "dc": 0.069,
@@ -78,10 +103,35 @@
     ]
   },
   "permitTimeline": [
-    { "city": "Los Angeles, CA", "testStart": "2023-03", "commercialLaunch": "2024-03", "months": 12, "status": "approved" },
-    { "city": "Austin, TX", "testStart": "2024-01", "commercialLaunch": "2025-04", "months": 15, "status": "approved" },
-    { "city": "Atlanta, GA", "testStart": "2025-01", "commercialLaunch": "2025-06", "months": 5, "status": "approved" },
-    { "city": "Washington, DC", "testStart": "2024-04", "commercialLaunch": null, "months": 24, "status": "waiting", "note": "Testing since Apr 2024 — still no commercial permit" }
+    {
+      "city": "Los Angeles, CA",
+      "testStart": "2023-03",
+      "commercialLaunch": "2024-03",
+      "months": 12,
+      "status": "approved"
+    },
+    {
+      "city": "Austin, TX",
+      "testStart": "2024-01",
+      "commercialLaunch": "2025-04",
+      "months": 15,
+      "status": "approved"
+    },
+    {
+      "city": "Atlanta, GA",
+      "testStart": "2025-01",
+      "commercialLaunch": "2025-06",
+      "months": 5,
+      "status": "approved"
+    },
+    {
+      "city": "Washington, DC",
+      "testStart": "2024-04",
+      "commercialLaunch": null,
+      "months": 23,
+      "status": "waiting",
+      "note": "Testing since Apr 2024 — still no commercial permit"
+    }
   ],
   "timeline": [
     {
