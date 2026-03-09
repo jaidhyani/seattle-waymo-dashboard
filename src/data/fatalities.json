@@ -6,9 +6,9 @@
       { "year": 2021, "deaths": 40 },
       { "year": 2022, "deaths": 35 },
       { "year": 2023, "deaths": 52 },
-      { "year": 2024, "deaths": 50 },
-      { "year": 2025, "deaths": 25, "note": "NSC estimate" },
-      { "year": 2026, "deaths": 25, "note": "Projected using 2025 rate" }
+      { "year": 2024, "deaths": 52 },
+      { "year": 2025, "deaths": 25 },
+      { "year": 2026, "deaths": 24, "note": "Projected from 6 YTD" }
     ],
     "fatalitySource": "DC MPD / Vision Zero crash data",
     "delayStart": "2023-01-01",
@@ -81,7 +81,7 @@
     { "city": "Los Angeles, CA", "testStart": "2023-03", "commercialLaunch": "2024-03", "months": 12, "status": "approved" },
     { "city": "Austin, TX", "testStart": "2024-01", "commercialLaunch": "2025-04", "months": 15, "status": "approved" },
     { "city": "Atlanta, GA", "testStart": "2025-01", "commercialLaunch": "2025-06", "months": 5, "status": "approved" },
-    { "city": "Washington, DC", "testStart": "2024-04", "commercialLaunch": null, "months": 22, "status": "waiting", "note": "Testing since Apr 2024 — still no commercial permit" }
+    { "city": "Washington, DC", "testStart": "2024-04", "commercialLaunch": null, "months": 24, "status": "waiting", "note": "Testing since Apr 2024 — still no commercial permit" }
   ],
   "timeline": [
     {
@@ -112,19 +112,19 @@
       "date": "July 2025",
       "event": "McDuffie introduces B26-0323",
       "detail": "Bill to enable AV deployment in DC",
-      "cumulativeDeaths": 117
+      "cumulativeDeaths": 119
     },
     {
       "date": "Dec 2025",
       "event": "Allen refuses to advance bill",
       "detail": "Councilmember Allen (Ward 6) blocks enabling legislation",
-      "cumulativeDeaths": 127
+      "cumulativeDeaths": 129
     },
     {
-      "date": "Feb 2026",
+      "date": "Mar 2026",
       "event": "Still in regulatory limbo",
       "detail": "No AV ride-hail service permitted in DC",
-      "cumulativeDeaths": 131
+      "cumulativeDeaths": 135
     }
   ],
   "sources": [
