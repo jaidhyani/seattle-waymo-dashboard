@@ -1,61 +1,71 @@
 {
-  "dcFatalities": {
+  "seattleFatalities": {
     "byYear": [
       {
         "year": 2019,
-        "deaths": 27
+        "deaths": 27,
+        "source": "SDOT Vision Zero"
       },
       {
         "year": 2020,
-        "deaths": 37
+        "deaths": 26,
+        "source": "SDOT Vision Zero"
       },
       {
         "year": 2021,
-        "deaths": 40
+        "deaths": 30,
+        "source": "SDOT Vision Zero"
       },
       {
         "year": 2022,
-        "deaths": 35
+        "deaths": 30,
+        "source": "SDOT Vision Zero"
       },
       {
         "year": 2023,
-        "deaths": 52
+        "deaths": 27,
+        "source": "SDOT Vision Zero"
       },
       {
         "year": 2024,
-        "deaths": 52
+        "deaths": 29,
+        "source": "SDOT Vision Zero"
       },
       {
         "year": 2025,
-        "deaths": 25
+        "deaths": 25,
+        "source": "SDOT Vision Zero / The Urbanist"
       },
       {
         "year": 2026,
-        "deaths": 32,
-        "note": "Projected from 8 YTD"
+        "deaths": 25,
+        "note": "Projected at 2025 rate"
       }
     ],
-    "fatalitySource": "DC MPD / Vision Zero crash data",
+    "fatalitySource": "SDOT Vision Zero crash data",
     "delayStart": "2023-01-01",
     "causeBreakdown": {
-      "drunkDriving": 0.3,
-      "speeding": 0.29,
-      "distraction": 0.08,
-      "other": 0.33
+      "impaired": 0.48,
+      "speeding": 0.31,
+      "distraction": 0.17,
+      "other": 0.04,
+      "source": "WTSC 2023 Annual Traffic Fatalities Report (WA state-level)",
+      "sourceUrl": "https://wtsc.wa.gov/wtsc-2023-traffic-fatalities/",
+      "note": "Washington state-level percentages; categories overlap (a crash can involve multiple factors). Seattle-specific breakdowns may differ."
     }
   },
   "waymoSafety": {
     "injuryCrashReduction": 0.85,
     "pedestrianInjuryReduction": 0.92,
     "intersectionCrashReduction": 0.96,
-    "conservativeVMTShare": 0.1,
+    "conservativeVMTShare": 0.05,
     "milesAnalyzed": "7.1 million",
     "rideHailVMTShare": {
-      "dc": 0.069,
+      "seattle": 0.019,
       "sf": 0.128,
       "source": "Fehr & Peers (2019)",
       "sourceUrl": "https://www.prnewswire.com/news-releases/new-study-finds-over-97-of-vehicle-miles-traveled-in-major-us-cities-are-completed-by-personal-and-commercial-vehicles-300896095.html",
-      "note": "Ride-hail share of city-core VMT. Conservative estimate of 10% assumes AV ride-hail captures most of existing ride-hail market plus modest growth."
+      "note": "Seattle metro ride-hail ~1.9% of VMT (lowest of 6 cities studied). The 5% figure assumes AV ride-hail captures the existing market in the urban core and grows significantly, as it has in other cities."
     },
     "rideHailSafetyComparison": {
       "waymo": {
@@ -125,56 +135,68 @@
       "status": "approved"
     },
     {
-      "city": "Washington, DC",
-      "testStart": "2024-04",
+      "city": "Seattle, WA",
+      "testStart": "2025-09",
       "commercialLaunch": null,
-      "months": 23,
+      "months": 7,
       "status": "waiting",
-      "note": "Testing since Apr 2024 — still no commercial permit"
+      "note": "Testing since Sep 2025 — no legal pathway to commercial service"
     }
   ],
   "timeline": [
     {
-      "date": "2020",
-      "event": "DC passes Autonomous Vehicle Testing Program law",
-      "detail": "Mandates DDOT complete a safety study by late 2022",
+      "date": "2017",
+      "event": "Gov. Inslee signs Executive Order 17-02",
+      "detail": "Promotes autonomous vehicle testing and technology development in Washington",
+      "sourceUrl": "https://governor.wa.gov/sites/default/files/exe_order/17-02AutonomouVehicles.pdf",
       "cumulativeDeaths": null
     },
     {
-      "date": "Late 2022",
-      "event": "DDOT misses legally mandated deadline",
-      "detail": "Safety study not completed; regulatory limbo begins",
-      "cumulativeDeaths": 0
+      "date": "Oct 2022",
+      "event": "RCW 46.92 takes effect",
+      "detail": "Establishes AV testing framework — but no pathway to commercial driverless service",
+      "sourceUrl": "https://app.leg.wa.gov/rcw/default.aspx?cite=46.92&full=true",
+      "cumulativeDeaths": null
     },
     {
       "date": "Jan 2023",
       "event": "Delay clock starts",
-      "detail": "AV deployment blocked without completed study",
+      "detail": "First legislative session after RCW 46.92 — opportunity to enable commercial AV deployment",
       "cumulativeDeaths": 0
     },
     {
-      "date": "April 2024",
-      "event": "Waymo begins testing in DC with safety drivers",
-      "detail": "Limited testing only — no public ride-hail service",
-      "cumulativeDeaths": 69
+      "date": "2023",
+      "event": "SB 5594 dies in committee",
+      "detail": "Bill to allow fully driverless AV operation fails to pass",
+      "sourceUrl": "https://app.leg.wa.gov/billsummary?BillNumber=5594&Year=2023",
+      "cumulativeDeaths": 27
     },
     {
-      "date": "July 2025",
-      "event": "McDuffie introduces B26-0323",
-      "detail": "Bill to enable AV deployment in DC",
-      "cumulativeDeaths": 119
+      "date": "Feb 2025",
+      "event": "HB 1984 gets committee hearing",
+      "detail": "Bill would require a licensed human driver in all AVs — moving backward",
+      "sourceUrl": "https://legiscan.com/WA/text/HB1984/id/3122122",
+      "cumulativeDeaths": 60
     },
     {
-      "date": "Dec 2025",
-      "event": "Allen refuses to advance bill",
-      "detail": "Councilmember Allen (Ward 6) blocks enabling legislation",
-      "cumulativeDeaths": 129
+      "date": "Sep 2025",
+      "event": "Waymo begins testing in Seattle",
+      "detail": "Safety drivers required — data collection only, no public rides",
+      "sourceUrl": "https://www.cnbc.com/2025/09/02/waymo-starts-testing-in-denver-seattle-expands-us-robotaxi-service.html",
+      "cumulativeDeaths": 75
     },
     {
-      "date": "Mar 2026",
-      "event": "Still in regulatory limbo",
-      "detail": "No AV ride-hail service permitted in DC",
-      "cumulativeDeaths": 137
+      "date": "Jan 2026",
+      "event": "HB 1984 reintroduced",
+      "detail": "Restrictive bill retained — legislature still moving away from AV deployment",
+      "sourceUrl": "https://legiscan.com/WA/text/HB1984/id/3122122",
+      "cumulativeDeaths": 81
+    },
+    {
+      "date": "Apr 2026",
+      "event": "Still no legal pathway",
+      "detail": "No commercial driverless AV service possible under Washington law",
+      "cumulativeDeaths": 87
     }
   ],
   "sources": [
@@ -184,14 +206,29 @@
       "url": "https://www.nhtsa.gov/research-data/fatality-analysis-reporting-system-fars"
     },
     {
-      "name": "DC Vision Zero",
-      "description": "District of Columbia traffic safety initiative and crash data",
-      "url": "https://visionzero.dc.gov/"
+      "name": "SDOT Vision Zero",
+      "description": "Seattle Department of Transportation traffic safety initiative and crash data",
+      "url": "https://www.seattle.gov/transportation/projects-and-programs/safety-first/vision-zero"
     },
     {
-      "name": "Open Data DC",
-      "description": "DC government open data portal — crash and fatality datasets",
-      "url": "https://opendata.dc.gov/"
+      "name": "WTSC Traffic Fatalities Report",
+      "description": "Washington Traffic Safety Commission — statewide fatality data and cause breakdowns",
+      "url": "https://wtsc.wa.gov/wtsc-2023-traffic-fatalities/"
+    },
+    {
+      "name": "RCW 46.92 — Autonomous Motor Vehicles",
+      "description": "Washington state law establishing AV testing framework (no commercial pathway)",
+      "url": "https://app.leg.wa.gov/rcw/default.aspx?cite=46.92&full=true"
+    },
+    {
+      "name": "HB 1984 — Require Human Driver in AVs",
+      "description": "Proposed Washington legislation that would mandate a licensed human driver in all autonomous vehicles",
+      "url": "https://legiscan.com/WA/text/HB1984/id/3122122"
+    },
+    {
+      "name": "Executive Order 17-02",
+      "description": "Gov. Inslee's 2017 executive order promoting autonomous vehicle testing in Washington",
+      "url": "https://governor.wa.gov/sites/default/files/exe_order/17-02AutonomouVehicles.pdf"
     },
     {
       "name": "Kusano et al. (2024)",
@@ -199,24 +236,24 @@
       "url": "https://doi.org/10.1080/15389588.2024.2380786"
     },
     {
+      "name": "Kusano et al. (2025) — 56.7M Miles",
+      "description": "Updated peer-reviewed study: 85% fewer suspected serious injury+ crashes over 56.7M Waymo miles",
+      "url": "https://doi.org/10.1080/15389588.2025.2499887"
+    },
+    {
       "name": "Swiss Re / Waymo Insurance Study (2024)",
       "description": "Zero bodily injury claims for Waymo fleet vs. human baseline",
       "url": "https://www.swissre.com/institute/research/topics-and-risk-dialogues/digital-business-model-and-cyber-risk/autonomous-vehicles-waymo-insurance.html"
     },
     {
-      "name": "B26-0323 — Autonomous Vehicle Deployment Act",
-      "description": "Proposed DC legislation to permit AV ride-hail deployment",
-      "url": "https://lims.dccouncil.gov/Legislation/B26-0323"
-    },
-    {
       "name": "Fehr & Peers Ride-Hail VMT Study (2019)",
-      "description": "Ride-hail accounts for 1–13% of city-core VMT across major US cities (DC: 6.9%, SF: 12.8%)",
+      "description": "Ride-hail as % of VMT across major US cities (Seattle metro: 1.9%, SF: 12.8%)",
       "url": "https://www.prnewswire.com/news-releases/new-study-finds-over-97-of-vehicle-miles-traveled-in-major-us-cities-are-completed-by-personal-and-commercial-vehicles-300896095.html"
     },
     {
-      "name": "Kusano et al. (2025) — 56.7M Miles",
-      "description": "Updated peer-reviewed study: 85% fewer suspected serious injury+ crashes over 56.7M Waymo miles",
-      "url": "https://doi.org/10.1080/15389588.2025.2499887"
+      "name": "Waymo Seattle Testing Announcement",
+      "description": "Waymo begins deploying test vehicles in Seattle (Sep 2025)",
+      "url": "https://www.cnbc.com/2025/09/02/waymo-starts-testing-in-denver-seattle-expands-us-robotaxi-service.html"
     }
   ]
 }

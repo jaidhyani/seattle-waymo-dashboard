@@ -13,21 +13,23 @@ const waymo = data.waymoSafety;
     <div class="methodology-content">
       <h3>How the counter works</h3>
       <p>
-        The live counter estimates preventable deaths by interpolating DC's cumulative
-        traffic fatalities since January 1, 2023 (when the DDOT safety study was
-        already overdue) and applying Waymo's peer-reviewed safety reduction factor.
+        The live counter estimates preventable deaths by interpolating Seattle's cumulative
+        traffic fatalities since January 1, 2023 (the first legislative session after
+        <a href="https://app.leg.wa.gov/rcw/default.aspx?cite=46.92&full=true" target="_blank" rel="noopener">RCW 46.92</a>
+        took effect, which established AV testing but provided no pathway to commercial deployment)
+        and applying Waymo's peer-reviewed safety reduction factor.
       </p>
       <p>
-        DC fatality data comes from MPD / Vision Zero crash reports: 2023 (52 deaths),
-        2024 (50 deaths), 2025 (25, NSC estimate), 2026 (25, projected at the 2025 rate).
-        Note: NHTSA FARS figures for DC differ slightly due to the federal 30-day rule
-        and different inclusion criteria. Deaths are interpolated linearly within each
-        year to produce a real-time estimate.
+        Seattle fatality data comes from
+        <a href="https://www.seattle.gov/transportation/projects-and-programs/safety-first/vision-zero" target="_blank" rel="noopener">SDOT Vision Zero</a>
+        crash reports: 2023 (27 deaths), 2024 (29 deaths), 2025 (25 deaths),
+        2026 (25, projected at 2025 rate). Deaths are interpolated linearly within
+        each year to produce a real-time estimate.
       </p>
 
       <h3>Estimate methodology</h3>
       <p>
-        The headline figure applies an 85% any-injury-reported crash reduction to 10%
+        The headline figure applies an 85% any-injury-reported crash reduction to 5%
         of vehicle miles traveled. The 85% comes from
         <a href="https://doi.org/10.1080/15389588.2024.2380786" target="_blank" rel="noopener">Kusano et al. (2024)</a>,
         which analyzed 7.1M rider-only miles. A subsequent
@@ -36,35 +38,52 @@ const waymo = data.waymoSafety;
         and 85% fewer suspected serious injury+ crashes (95% CI: 39–99%).
       </p>
       <p>
-        The 10% VMT share is a conservative proxy for AV ride-hail market share.
-        Ride-hail currently accounts for ~7% of DC's city-core VMT
-        (<a href="https://www.prnewswire.com/news-releases/new-study-finds-over-97-of-vehicle-miles-traveled-in-major-us-cities-are-completed-by-personal-and-commercial-vehicles-300896095.html" target="_blank" rel="noopener">Fehr &amp; Peers, 2019</a>);
-        the 10% figure assumes AV ride-hail captures most of that market plus modest growth.
+        The 5% VMT share is a conservative proxy for AV ride-hail market share.
+        Ride-hail currently accounts for ~2% of Seattle metro VMT
+        (<a href="https://www.prnewswire.com/news-releases/new-study-finds-over-97-of-vehicle-miles-traveled-in-major-us-cities-are-completed-by-personal-and-commercial-vehicles-300896095.html" target="_blank" rel="noopener">Fehr &amp; Peers, 2019</a>)
+        — the lowest of six major cities studied. The 5% figure assumes AV ride-hail
+        captures the urban-core market and grows significantly, as it has in cities
+        like San Francisco (~13% of city-core VMT).
       </p>
 
       <h3>Key assumptions &amp; limitations</h3>
       <ul class="assumptions-list">
         <li>
           The 85% reduction comes from Kusano et al.'s analysis of {waymo.milesAnalyzed}
-          autonomous miles. Real-world deployment at scale could differ.
+          autonomous miles in Phoenix and San Francisco. Real-world deployment
+          in Seattle could differ.
         </li>
         <li>
           Fatality reductions are extrapolated from injury crash data. Fatality-specific
           reductions may be higher or lower than the overall injury crash reduction.
         </li>
         <li>
-          The 10% VMT share is based on Fehr &amp; Peers data showing DC ride-hail at
-          ~7% of city-core VMT (2019). Actual AV deployment would ramp up gradually,
-          not begin at 10% on day one. For context, San Francisco's ride-hail VMT share
-          is ~13% — the highest of any major US city.
+          The 5% VMT share is speculative. Seattle metro ride-hail is currently ~2%
+          of total VMT (Fehr &amp; Peers, 2019). City-core share would be higher,
+          but 5% still assumes substantial growth beyond current ride-hail levels.
+          For context, San Francisco's ride-hail VMT share is ~13%.
+        </li>
+        <li>
+          The "delay" framing is debatable. Unlike DC, where a mandated study deadline
+          was missed, Washington's situation is a legislative gap — the state passed
+          a testing law but never created a commercial deployment framework. Reasonable
+          people can disagree about when the delay "started."
+        </li>
+        <li>
+          Seattle's hilly terrain, frequent rain, and specific road conditions differ
+          from Waymo's primary operating environments (Phoenix, San Francisco).
+          Waymo has been testing in Seattle since Sep 2025 partly to address this.
+        </li>
+        <li>
+          Cause-of-crash percentages (impaired, speed, distraction) are Washington
+          state-level figures from
+          <a href="https://wtsc.wa.gov/wtsc-2023-traffic-fatalities/" target="_blank" rel="noopener">WTSC</a>,
+          not Seattle-specific. These categories can overlap (a crash may involve both
+          impairment and speeding).
         </li>
         <li>
           These figures represent potential lives saved, not certainties. AV technology
           continues to improve, and real-world results will depend on deployment specifics.
-        </li>
-        <li>
-          DC's road conditions, driver behavior, and infrastructure differ from cities
-          where Waymo data was collected (primarily Phoenix and San Francisco).
         </li>
       </ul>
 
@@ -84,7 +103,9 @@ const waymo = data.waymoSafety;
         illustrate the potential human cost of regulatory delay, not to predict
         exact outcomes. The authors are advocates for autonomous vehicle deployment
         and present this data in good faith to inform public discourse. All
-        sources are linked for independent verification.
+        sources are linked for independent verification. Forked from
+        <a href="https://tbhochman.github.io/dc-waymo-dashboard/" target="_blank" rel="noopener">DC Waymo Delay Dashboard</a>
+        by T. Hochman.
       </div>
     </div>
   </div>

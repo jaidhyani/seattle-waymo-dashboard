@@ -6,7 +6,7 @@ const permits = data.permitTimeline;
 
 // Approximate YYYY-MM for each timeline node (for interpolation)
 const timelineDates = [
-  '2020-01', '2022-10', '2023-01', '2024-04', '2025-07', '2025-12', '2026-02'
+  '2017-01', '2022-10', '2023-01', '2023-06', '2025-02', '2025-09', '2026-01', '2026-04'
 ];
 
 const citySpans = permits
@@ -21,14 +21,20 @@ const citySpans = permits
 <section class="section">
   <div class="container">
     <h2 class="section-title">The Delay</h2>
-    <p class="section-subtitle">A timeline of DC's autonomous vehicle regulatory failure</p>
+    <p class="section-subtitle">A timeline of Washington's autonomous vehicle regulatory gap</p>
 
-    <div class="timeline" id="dc-timeline">
+    <div class="timeline" id="sea-timeline">
       {events.map((event, i) => (
         <div class={`timeline-node ${i === events.length - 1 ? 'active' : ''}`} data-date={timelineDates[i]}>
           <div class="timeline-dot" />
           <div class="timeline-date">{event.date}</div>
-          <div class="timeline-event">{event.event}</div>
+          <div class="timeline-event">
+            {event.sourceUrl ? (
+              <a href={event.sourceUrl} target="_blank" rel="noopener" style="color: inherit; text-decoration: underline; text-decoration-style: dotted;">{event.event}</a>
+            ) : (
+              event.event
+            )}
+          </div>
           <div class="timeline-detail">{event.detail}</div>
           {event.cumulativeDeaths !== null && event.cumulativeDeaths > 0 && (
             <div class="timeline-deaths">
@@ -50,7 +56,7 @@ const citySpans = permits
   }
 
   function positionCityBars() {
-    const timeline = document.getElementById('dc-timeline');
+    const timeline = document.getElementById('sea-timeline');
     const nodes = timeline.querySelectorAll('.timeline-node');
     const container = document.getElementById('city-spans');
     if (!timeline || !nodes.length || !container) return;
@@ -81,10 +87,7 @@ const citySpans = permits
       return nodeData[nodeData.length - 1].y;
     }
 
-    // Short names for labels
     var shortName = { 'Los Angeles': 'LA' };
-
-    // Each city gets its own column
     var columns = [2, 1, 0];
 
     citySpans.forEach((city, i) => {

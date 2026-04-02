@@ -2,11 +2,11 @@
 import data from '../data/fatalities.json';
 
 const permits = data.permitTimeline;
-const causes = data.dcFatalities.causeBreakdown;
+const causes = data.seattleFatalities.causeBreakdown;
 
-// Time axis: Jan 2023 to Mar 2026 = 38 months
+// Time axis: Jan 2023 to Apr 2026 = 39 months
 const axisStart = new Date(2023, 0, 1).getTime();
-const axisEnd = new Date(2026, 2, 1).getTime();
+const axisEnd = new Date(2026, 3, 1).getTime();
 const axisSpan = axisEnd - axisStart;
 
 function monthToTime(ym: string) {
@@ -63,20 +63,21 @@ const yearMarks = axisYears.map(y => ({
           ))}
           <div class="gantt-legend">
             <span class="gantt-legend-item"><span class="gantt-dot approved" /> Testing → launched</span>
-            <span class="gantt-legend-item"><span class="gantt-dot waiting" /> Testing → still waiting</span>
+            <span class="gantt-legend-item"><span class="gantt-dot waiting" /> Testing → no legal pathway</span>
           </div>
         </div>
       </div>
 
       <div class="data-panel">
-        <h3>DC Fatalities by Cause</h3>
+        <h3>WA Fatalities by Cause</h3>
         <p style="font-size: 0.85rem; color: var(--text-muted); margin-bottom: 16px;">
           Factors that autonomous vehicles eliminate
+          (<a href={causes.sourceUrl} target="_blank" rel="noopener" style="font-size: 0.75rem;">WTSC 2023</a>)
         </p>
         <div class="cause-grid">
           <div class="cause-item">
-            <div class="cause-pct">{(causes.drunkDriving * 100).toFixed(0)}%</div>
-            <div class="cause-name">Drunk driving</div>
+            <div class="cause-pct">{(causes.impaired * 100).toFixed(0)}%</div>
+            <div class="cause-name">Impaired driving</div>
             <div class="cause-note">AVs don't drink</div>
           </div>
           <div class="cause-item">
@@ -90,6 +91,9 @@ const yearMarks = axisYears.map(y => ({
             <div class="cause-note">AVs don't text</div>
           </div>
         </div>
+        <p style="font-size: 0.7rem; color: var(--text-dim); margin-top: 12px;">
+          {causes.note}
+        </p>
       </div>
     </div>
   </div>

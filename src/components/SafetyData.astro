@@ -1,7 +1,7 @@
 ---
 import data from '../data/fatalities.json';
 
-const years = data.dcFatalities.byYear;
+const years = data.seattleFatalities.byYear;
 const maxDeaths = Math.max(...years.map(y => y.deaths));
 const waymo = data.waymoSafety;
 const rideHailSafety = waymo.rideHailSafetyComparison;
@@ -15,11 +15,11 @@ const conservativePreventable = recentFullYear ? (recentFullYear.deaths * waymo.
 <section class="section">
   <div class="container">
     <h2 class="section-title">The Data</h2>
-    <p class="section-subtitle">Waymo's safety record applied to DC</p>
+    <p class="section-subtitle">Waymo's safety record applied to Seattle</p>
 
     <div class="data-grid">
       <div class="data-panel">
-        <h3>DC Traffic Fatalities (2019–2025)</h3>
+        <h3>Seattle Traffic Fatalities (2019–2025)</h3>
         <div class="bar-chart">
           {years.filter(y => y.year >= 2019 && y.year <= 2025).map(y => (
             <div class="bar-row">
@@ -35,7 +35,8 @@ const conservativePreventable = recentFullYear ? (recentFullYear.deaths * waymo.
           ))}
         </div>
         <p style="font-size: 0.75rem; color: var(--text-dim); margin-top: 8px;">
-          * 2025: NSC estimate; 2026: projected at 2025 rate
+          Source: <a href="https://www.seattle.gov/transportation/projects-and-programs/safety-first/vision-zero" target="_blank" rel="noopener">SDOT Vision Zero</a>.
+          * 2026: projected at 2025 rate.
         </p>
       </div>
 
@@ -60,18 +61,19 @@ const conservativePreventable = recentFullYear ? (recentFullYear.deaths * waymo.
         </div>
 
         <div style="margin-top: 24px; padding-top: 16px; border-top: 1px solid var(--border);">
-          <h3 style="margin-bottom: 16px;">Applied to DC (annual, based on 2024)</h3>
+          <h3 style="margin-bottom: 16px;">Applied to Seattle (annual, based on 2024)</h3>
           <div class="stat-row">
             <span class="stat-label">Preventable deaths/year (full deployment)</span>
             <span class="stat-value highlight">{annualPreventable}</span>
           </div>
           <div class="stat-row">
-            <span class="stat-label">Preventable deaths/year (10% VMT share)</span>
+            <span class="stat-label">Preventable deaths/year (5% VMT share)</span>
             <span class="stat-value highlight">{conservativePreventable}</span>
           </div>
           <p style="font-size: 0.75rem; color: var(--text-dim); margin-top: 8px;">
-            DC ride-hail is currently ~7% of city-core VMT (<a href={waymo.rideHailVMTShare.sourceUrl} target="_blank" rel="noopener">Fehr &amp; Peers</a>).
-            10% assumes AV ride-hail captures most of the existing market plus modest growth.
+            Seattle metro ride-hail is ~2% of VMT (<a href={waymo.rideHailVMTShare.sourceUrl} target="_blank" rel="noopener">Fehr &amp; Peers, 2019</a>).
+            5% assumes AV ride-hail captures the urban core market and grows beyond current levels,
+            as it has in cities like San Francisco (~13%).
           </p>
         </div>
 

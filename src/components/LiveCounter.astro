@@ -1,19 +1,19 @@
 ---
 import data from '../data/fatalities.json';
 
-const yearlyDeaths = data.dcFatalities.byYear;
+const yearlyDeaths = data.seattleFatalities.byYear;
 const waymoReduction = data.waymoSafety.injuryCrashReduction;
 const conservativeShare = data.waymoSafety.conservativeVMTShare;
 ---
 
 <section class="hero">
-  <h1>DC Autonomous Vehicle Delay Dashboard</h1>
+  <h1>Seattle Autonomous Vehicle Delay Dashboard</h1>
 
   <div class="counter-wrapper">
     <div class="counter-label">Estimated preventable deaths since Jan 1, 2023</div>
     <div class="counter-value" id="main-counter">--</div>
     <div class="counter-sublabel">
-      Based on 85% crash reduction &times; 10% VMT share
+      Based on 85% crash reduction &times; 5% VMT share
       (<a href="https://www.prnewswire.com/news-releases/new-study-finds-over-97-of-vehicle-miles-traveled-in-major-us-cities-are-completed-by-personal-and-commercial-vehicles-300896095.html" target="_blank" rel="noopener" style="color: var(--text-muted);">Fehr &amp; Peers</a>,
       <a href="https://doi.org/10.1080/15389588.2024.2380786" target="_blank" rel="noopener" style="color: var(--text-muted);">Kusano et al.</a>)
     </div>
@@ -21,7 +21,7 @@ const conservativeShare = data.waymoSafety.conservativeVMTShare;
 
   <div class="counter-scenarios">
     <div class="scenario">
-      <div class="scenario-label">Total DC road deaths</div>
+      <div class="scenario-label">Total Seattle road deaths</div>
       <div class="scenario-value" id="scenario-total" style="color: var(--text);">--</div>
       <div class="scenario-detail">Since Jan 1, 2023</div>
     </div>
@@ -29,8 +29,6 @@ const conservativeShare = data.waymoSafety.conservativeVMTShare;
 </section>
 
 <script define:vars={{ yearlyDeaths, waymoReduction, conservativeShare }}>
-  // Build cumulative death milestones: start of each year
-  // Jan 1, 2023 = 0 cumulative, end of 2023 = 51, end of 2024 = 101, etc.
   const milestones = [];
   let cumulative = 0;
 
@@ -40,7 +38,6 @@ const conservativeShare = data.waymoSafety.conservativeVMTShare;
     milestones.push({ time: startOfYear, deaths: cumulative });
     cumulative += entry.deaths;
   }
-  // Add one more for the end of last projected year
   const lastEntry = yearlyDeaths[yearlyDeaths.length - 1];
   const endOfLastYear = new Date(lastEntry.year + 1, 0, 1).getTime();
   milestones.push({ time: endOfLastYear, deaths: cumulative });

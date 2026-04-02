@@ -40,5 +40,5 @@ jobs:
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
           git add src/data/fatalities.json
-          git commit -m "chore: auto-update DC fatality data"
+          git commit -m "chore: auto-update Seattle fatality data"
           git push

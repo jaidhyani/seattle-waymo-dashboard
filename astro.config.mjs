@@ -1,7 +1,7 @@
 import { defineConfig } from 'astro/config';
 
 export default defineConfig({
-  site: 'https://tbhochman.github.io',
-  base: '/dc-waymo-dashboard',
+  site: 'https://jaidhyani.github.io',
+  base: '/seattle-waymo-dashboard',
   output: 'static',
 });
