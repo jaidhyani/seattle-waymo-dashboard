@@ -8,6 +8,7 @@
   --orange: #FF4F00;
   --orange-dim: #cc3f00;
   --orange-glow: rgba(255, 79, 0, 0.15);
+  --draft-yellow: #FFA300;
   --accent: #FF4F00;
   --blue: #4997D0;
   --green: #4aff9e;
@@ -665,6 +666,25 @@ a:hover {
   font-size: 0.85rem;
   color: var(--text-muted);
   line-height: 1.7;
+}
+
+/* Draft Banner */
+.draft-banner {
+  font-family: var(--font-sans);
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--bg);
+  background: var(--draft-yellow);
+  padding: 8px 20px;
+  border-radius: 6px;
+  display: inline-block;
+  margin-bottom: 28px;
+  letter-spacing: 0.5px;
+}
+
+.draft-banner a {
+  color: var(--bg);
+  text-decoration: underline;
 }
 
 /* Footer */
