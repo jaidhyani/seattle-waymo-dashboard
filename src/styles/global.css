@@ -687,6 +687,23 @@ a:hover {
   text-decoration: underline;
 }
 
+.fork-credit {
+  font-family: var(--font-sans);
+  font-size: 0.85rem;
+  color: var(--text-muted);
+  margin-bottom: 32px;
+}
+
+.fork-credit a {
+  color: var(--text-muted);
+  text-decoration: underline;
+  text-decoration-style: dotted;
+}
+
+.fork-credit a:hover {
+  color: var(--text);
+}
+
 /* Footer */
 .footer {
   text-align: center;
